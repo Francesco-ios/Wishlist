@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Wishlist</title>
 
 <style>
 :root{
   --bg:#f5f5f7;
-  --card:#ffffff;
   --text:#1d1d1f;
   --muted:#6e6e73;
   --blue:#0071e3;
@@ -18,43 +17,36 @@
   --border:rgba(0,0,0,.07);
 }
 
-*{
-  box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 body{
   margin:0;
-  background:
-    radial-gradient(circle at 10% 0%, rgba(160,210,255,.32), transparent 28%),
-    radial-gradient(circle at 95% 10%, rgba(255,205,220,.28), transparent 25%),
-    var(--bg);
-  color:var(--text);
-  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,sans-serif;
   min-height:100vh;
+  color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue",Arial,sans-serif;
+  background:
+    radial-gradient(circle at 10% 0%,rgba(132,200,255,.28),transparent 30%),
+    radial-gradient(circle at 95% 10%,rgba(255,190,215,.24),transparent 27%),
+    var(--bg);
 }
 
-button,input,select{
-  font:inherit;
-}
-
-button{
-  cursor:pointer;
-}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
 
 .topbar{
   position:sticky;
   top:0;
   z-index:50;
-  backdrop-filter:blur(28px) saturate(180%);
-  -webkit-backdrop-filter:blur(28px) saturate(180%);
-  background:rgba(255,255,255,.65);
+  background:rgba(255,255,255,.67);
+  backdrop-filter:blur(26px) saturate(180%);
+  -webkit-backdrop-filter:blur(26px) saturate(180%);
   border-bottom:1px solid rgba(0,0,0,.05);
 }
 
 .topbar-inner{
-  max-width:1280px;
+  max-width:1300px;
   margin:auto;
-  padding:14px 18px;
+  padding:13px 18px;
   display:flex;
   align-items:center;
   gap:14px;
@@ -62,7 +54,7 @@ button{
 
 .logo{
   font-size:20px;
-  font-weight:700;
+  font-weight:720;
   letter-spacing:-.04em;
   white-space:nowrap;
 }
@@ -70,15 +62,6 @@ button{
 .search{
   flex:1;
   position:relative;
-}
-
-.search input{
-  width:100%;
-  border:none;
-  outline:none;
-  background:rgba(118,118,128,.10);
-  border-radius:14px;
-  padding:11px 14px 11px 38px;
 }
 
 .search span{
@@ -89,72 +72,76 @@ button{
   color:#8e8e93;
 }
 
+.search input{
+  width:100%;
+  border:0;
+  outline:0;
+  padding:11px 14px 11px 38px;
+  border-radius:14px;
+  background:rgba(118,118,128,.10);
+}
+
 .btn{
-  border:none;
+  border:0;
   border-radius:14px;
   padding:10px 15px;
-  background:rgba(118,118,128,.10);
+  background:rgba(118,118,128,.11);
 }
 
 .btn.primary{
   background:var(--blue);
-  color:white;
-  font-weight:600;
+  color:#fff;
+  font-weight:650;
 }
 
 .hero{
-  max-width:1280px;
+  max-width:1300px;
   margin:auto;
   padding:55px 18px 30px;
 }
 
 .hero h1{
-  font-size:clamp(42px,7vw,78px);
-  letter-spacing:-.065em;
-  line-height:.95;
   margin:0;
   max-width:850px;
+  font-size:clamp(44px,7vw,82px);
+  line-height:.94;
+  letter-spacing:-.065em;
 }
 
 .hero p{
   margin:20px 0 0;
+  max-width:650px;
   color:var(--muted);
-  max-width:600px;
   font-size:18px;
   line-height:1.5;
 }
 
 .toolbar{
-  max-width:1280px;
+  max-width:1300px;
   margin:auto;
   padding:0 18px 20px;
   display:flex;
   gap:10px;
   align-items:center;
-  flex-wrap:wrap;
 }
 
 .categories{
+  flex:1;
   display:flex;
   gap:8px;
-  overflow-x:auto;
-  flex:1;
+  overflow:auto;
   scrollbar-width:none;
 }
 
-.categories::-webkit-scrollbar{
-  display:none;
-}
+.categories::-webkit-scrollbar{display:none}
 
 .pill{
-  border:none;
-  white-space:nowrap;
-  background:rgba(255,255,255,.72);
   border:1px solid rgba(0,0,0,.05);
   border-radius:999px;
   padding:9px 14px;
+  white-space:nowrap;
+  background:rgba(255,255,255,.72);
   color:var(--muted);
-  backdrop-filter:blur(20px);
 }
 
 .pill.active{
@@ -163,15 +150,15 @@ button{
 }
 
 .sort{
-  border:none;
-  outline:none;
+  border:0;
+  outline:0;
   border-radius:999px;
-  background:rgba(255,255,255,.75);
   padding:10px 15px;
+  background:rgba(255,255,255,.76);
 }
 
 .main{
-  max-width:1280px;
+  max-width:1300px;
   margin:auto;
   padding:0 18px 80px;
 }
@@ -185,13 +172,13 @@ button{
 
 .section-head h2{
   margin:0;
-  font-size:28px;
+  font-size:29px;
   letter-spacing:-.04em;
 }
 
 .count{
-  color:var(--muted);
   font-size:14px;
+  color:var(--muted);
 }
 
 .grid{
@@ -201,31 +188,31 @@ button{
 }
 
 .card{
-  background:rgba(255,255,255,.82);
-  border:1px solid rgba(255,255,255,.9);
-  border-radius:24px;
-  overflow:hidden;
-  box-shadow:0 12px 35px rgba(20,30,50,.07);
-  backdrop-filter:blur(25px) saturate(170%);
-  -webkit-backdrop-filter:blur(25px) saturate(170%);
-  transition:.25s ease;
   position:relative;
+  overflow:hidden;
+  cursor:pointer;
+  border-radius:25px;
+  background:rgba(255,255,255,.82);
+  border:1px solid rgba(255,255,255,.95);
+  box-shadow:0 12px 35px rgba(30,40,60,.07);
+  backdrop-filter:blur(24px) saturate(170%);
+  transition:.25s ease;
 }
 
 .card:hover{
   transform:translateY(-4px);
-  box-shadow:0 22px 55px rgba(20,30,50,.12);
+  box-shadow:0 22px 55px rgba(30,40,60,.12);
 }
 
-.image{
+.card-image{
   margin:10px;
   aspect-ratio:1/1.08;
-  border-radius:18px;
   overflow:hidden;
+  border-radius:19px;
   background:#ededf0;
 }
 
-.image img{
+.card-image img{
   width:100%;
   height:100%;
   object-fit:cover;
@@ -233,182 +220,228 @@ button{
 }
 
 .card-body{
-  padding:8px 16px 16px;
+  padding:8px 16px 17px;
 }
 
 .brand{
   color:#86868b;
   font-size:12px;
-  font-weight:700;
-  text-transform:uppercase;
+  font-weight:720;
   letter-spacing:.08em;
+  text-transform:uppercase;
 }
 
 .name{
-  font-size:18px;
-  font-weight:650;
   margin:6px 0 12px;
+  font-size:18px;
   line-height:1.25;
+  font-weight:650;
 }
 
 .row{
   display:flex;
-  justify-content:space-between;
   align-items:center;
+  justify-content:space-between;
   gap:10px;
 }
 
 .price{
   font-size:18px;
-  font-weight:650;
+  font-weight:670;
 }
 
 .tag{
+  padding:5px 8px;
+  border-radius:999px;
+  background:rgba(118,118,128,.11);
   font-size:11px;
   color:var(--muted);
-  background:rgba(118,118,128,.10);
-  border-radius:999px;
-  padding:5px 8px;
 }
 
-.actions{
-  display:flex;
-  gap:7px;
-  margin-top:14px;
-}
-
-.open{
-  flex:1;
-  text-align:center;
-  text-decoration:none;
-  color:white;
-  background:#1d1d1f;
-  border-radius:12px;
-  padding:9px 10px;
-  font-size:13px;
-}
-
-.small-btn{
-  width:36px;
-  height:36px;
-  border:none;
-  border-radius:11px;
-  background:rgba(118,118,128,.10);
-}
-
-.heart{
+.circle{
   position:absolute;
   top:20px;
-  right:20px;
+  z-index:5;
   width:39px;
   height:39px;
+  border:0;
   border-radius:50%;
-  border:none;
   background:rgba(255,255,255,.78);
   backdrop-filter:blur(15px);
   font-size:18px;
 }
 
-.heart.on{
-  color:var(--red);
-}
-
-.priority{
-  position:absolute;
-  top:20px;
-  left:20px;
-  width:39px;
-  height:39px;
-  border-radius:50%;
-  border:none;
-  background:rgba(255,255,255,.78);
-  backdrop-filter:blur(15px);
-  font-size:18px;
-}
+.priority{left:20px}
+.favorite{right:20px}
 
 .priority.on{
   background:var(--orange);
   color:white;
 }
 
+.favorite.on{color:var(--red)}
+
 .buy-next{
   display:inline-block;
-  margin:7px 0 0;
-  color:#b35f00;
-  background:rgba(255,149,0,.14);
+  margin-top:9px;
   padding:5px 8px;
   border-radius:999px;
+  background:rgba(255,149,0,.14);
+  color:#b15d00;
   font-size:11px;
   font-weight:700;
 }
 
 .empty{
-  padding:80px 20px;
-  text-align:center;
-  color:var(--muted);
   grid-column:1/-1;
+  text-align:center;
+  padding:80px 20px;
+  color:var(--muted);
 }
+
+/* DETAIL MODAL */
 
 .overlay{
   position:fixed;
   inset:0;
   z-index:100;
   display:none;
-  place-items:center;
   padding:20px;
-  background:rgba(0,0,0,.22);
+  place-items:center;
+  background:rgba(0,0,0,.24);
   backdrop-filter:blur(18px);
 }
 
-.overlay.show{
-  display:grid;
-}
+.overlay.show{display:grid}
 
-.modal{
-  width:min(560px,100%);
-  max-height:90vh;
+.detail{
+  width:min(1050px,100%);
+  max-height:92vh;
   overflow:auto;
-  background:rgba(255,255,255,.86);
-  backdrop-filter:blur(35px) saturate(180%);
-  -webkit-backdrop-filter:blur(35px) saturate(180%);
+  border-radius:30px;
+  background:rgba(255,255,255,.88);
   border:1px solid rgba(255,255,255,.95);
-  border-radius:28px;
-  padding:24px;
-  box-shadow:0 40px 100px rgba(0,0,0,.18);
+  box-shadow:0 40px 120px rgba(0,0,0,.22);
+  backdrop-filter:blur(40px) saturate(180%);
+  -webkit-backdrop-filter:blur(40px) saturate(180%);
 }
 
-.modal h2{
-  margin:0 0 6px;
-  font-size:28px;
-  letter-spacing:-.04em;
+.detail-grid{
+  display:grid;
+  grid-template-columns:1.15fr .85fr;
+  min-height:600px;
 }
 
-.modal p{
-  color:var(--muted);
-  margin:0 0 20px;
-  line-height:1.45;
+.gallery{
+  padding:18px;
+}
+
+.main-photo{
+  aspect-ratio:1/1;
+  border-radius:22px;
+  overflow:hidden;
+  background:#eee;
+}
+
+.main-photo img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.thumbnails{
+  display:flex;
+  gap:9px;
+  margin-top:10px;
+  overflow:auto;
+}
+
+.thumb{
+  flex:0 0 74px;
+  width:74px;
+  height:74px;
+  border-radius:13px;
+  border:2px solid transparent;
+  padding:0;
+  overflow:hidden;
+  background:#eee;
+}
+
+.thumb.active{
+  border-color:var(--blue);
+}
+
+.thumb img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.info-panel{
+  padding:28px;
+  position:relative;
+}
+
+.close{
+  position:absolute;
+  right:22px;
+  top:20px;
+  width:38px;
+  height:38px;
+  border:0;
+  border-radius:50%;
+  background:rgba(118,118,128,.11);
+  font-size:19px;
+}
+
+.detail-brand{
+  color:#86868b;
+  font-size:13px;
+  font-weight:700;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  padding-right:50px;
+}
+
+.detail-name{
+  margin:8px 0 4px;
+  font-size:34px;
+  line-height:1.05;
+  letter-spacing:-.045em;
+}
+
+.detail-price{
+  margin:0 0 24px;
+  font-size:24px;
+  font-weight:650;
 }
 
 .field{
-  margin-bottom:12px;
+  margin-bottom:14px;
 }
 
 .field label{
   display:block;
+  margin:0 0 6px 3px;
   font-size:12px;
   color:var(--muted);
-  margin:0 0 6px 4px;
+  font-weight:650;
 }
 
 .field input,
+.field textarea,
 .field select{
   width:100%;
-  border:none;
-  outline:none;
+  border:1px solid rgba(0,0,0,.07);
   border-radius:13px;
   background:white;
-  padding:12px 13px;
-  border:1px solid rgba(0,0,0,.07);
+  padding:11px 12px;
+  outline:none;
+}
+
+.field textarea{
+  resize:vertical;
+  min-height:80px;
 }
 
 .two{
@@ -417,25 +450,115 @@ button{
   gap:10px;
 }
 
+.size-row{
+  display:flex;
+  gap:7px;
+  flex-wrap:wrap;
+}
+
+.size{
+  border:1px solid rgba(0,0,0,.10);
+  border-radius:10px;
+  padding:8px 11px;
+  background:white;
+}
+
+.size.selected{
+  color:white;
+  background:#1d1d1f;
+}
+
+.detail-actions{
+  display:flex;
+  gap:8px;
+  margin-top:20px;
+  flex-wrap:wrap;
+}
+
+.store-link{
+  flex:1;
+  min-width:150px;
+  text-align:center;
+  text-decoration:none;
+  border-radius:13px;
+  padding:11px 14px;
+  color:white;
+  background:#1d1d1f;
+}
+
+.danger{
+  color:var(--red);
+}
+
+/* ADD MODAL */
+
+.add-modal{
+  width:min(600px,100%);
+  max-height:92vh;
+  overflow:auto;
+  padding:25px;
+  border-radius:30px;
+  background:rgba(255,255,255,.88);
+  backdrop-filter:blur(40px) saturate(180%);
+  border:1px solid white;
+  box-shadow:0 40px 100px rgba(0,0,0,.20);
+}
+
+.add-modal h2{
+  margin:0;
+  font-size:30px;
+  letter-spacing:-.04em;
+}
+
+.add-modal p{
+  color:var(--muted);
+  line-height:1.5;
+}
+
+.importbox{
+  display:flex;
+  gap:8px;
+  margin:18px 0;
+}
+
+.importbox input{
+  flex:1;
+  min-width:0;
+  border:1px solid rgba(0,0,0,.07);
+  border-radius:14px;
+  padding:12px;
+  outline:none;
+  background:white;
+}
+
+.notice{
+  margin:12px 0;
+  padding:10px 12px;
+  border-radius:12px;
+  background:rgba(0,113,227,.09);
+  color:#245a8b;
+  font-size:13px;
+  line-height:1.4;
+}
+
 .modal-actions{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:9px;
+  gap:8px;
   margin-top:18px;
 }
 
-.note{
-  font-size:12px;
-  color:var(--muted);
-  background:rgba(0,113,227,.08);
-  padding:10px 12px;
-  border-radius:12px;
-  margin-bottom:15px;
-}
+@media(max-width:760px){
+  .detail-grid{
+    grid-template-columns:1fr;
+  }
 
-@media(max-width:650px){
-  .hero{
-    padding-top:35px;
+  .detail-name{
+    font-size:28px;
+  }
+
+  .two{
+    grid-template-columns:1fr;
   }
 
   .topbar-inner{
@@ -444,24 +567,15 @@ button{
 
   .search{
     order:3;
-    width:100%;
     flex-basis:100%;
   }
 
-  .hero p{
-    font-size:16px;
+  .hero{
+    padding-top:36px;
   }
 
   .grid{
     grid-template-columns:1fr;
-  }
-
-  .two{
-    grid-template-columns:1fr;
-  }
-
-  .desktop-text{
-    display:none;
   }
 }
 </style>
@@ -475,27 +589,23 @@ button{
 
     <div class="search">
       <span>⌕</span>
-      <input id="searchInput" placeholder="Search names & brands..." />
+      <input id="searchInput" placeholder="Search names & brands">
     </div>
 
-    <button class="btn primary" id="addBtn">
-      + <span class="desktop-text">Add Item</span>
-    </button>
+    <button class="btn primary" id="addBtn">+ Add Item</button>
   </div>
 </header>
 
-
 <section class="hero">
   <h1>Your collection.<br>Beautifully organized.</h1>
+
   <p>
-    Save clothes, watches, jewelry and anything else you want.
-    Search it, sort it, favorite it and decide what to buy next.
+    Save fashion, watches, jewelry and everything else you want.
+    Keep sizes, colors, images and notes together in one place.
   </p>
 </section>
 
-
 <section class="toolbar">
-
   <div class="categories" id="categories"></div>
 
   <select class="sort" id="sortSelect">
@@ -505,72 +615,69 @@ button{
     <option value="high">Price: High → Low</option>
     <option value="az">Name: A → Z</option>
   </select>
-
 </section>
 
-
 <main class="main">
-
   <div class="section-head">
     <h2 id="sectionTitle">Everything</h2>
     <div class="count" id="count"></div>
   </div>
 
   <div class="grid" id="grid"></div>
-
 </main>
 
+<!-- ADD -->
 
-<div class="overlay" id="overlay">
+<div class="overlay" id="addOverlay">
+  <div class="add-modal">
 
-  <div class="modal">
-
-    <h2 id="modalTitle">Add item</h2>
+    <h2>Add Item</h2>
 
     <p>
-      Add a product to your collection.
+      Paste a product link. Automatic importing will be connected in the next step.
+      You can already enter all information manually.
     </p>
 
-    <div class="note">
-      For now, paste the product details manually. We can add automatic product-link importing later using a secure backend.
+    <div class="importbox">
+      <input id="importUrl" placeholder="https://www.amiparis.com/...">
+      <button class="btn primary" id="importBtn">Import</button>
+    </div>
+
+    <div class="notice" id="importNotice">
+      Automatic product reading needs the free importer backend we will connect after this update.
     </div>
 
     <div class="field">
       <label>Product name</label>
-      <input id="nameInput" placeholder="e.g. Oversized Hoodie">
+      <input id="newName">
     </div>
 
     <div class="two">
-
       <div class="field">
         <label>Brand</label>
-        <input id="brandInput" placeholder="e.g. Essentials">
+        <input id="newBrand">
       </div>
 
       <div class="field">
         <label>Price</label>
-        <input id="priceInput" type="number" step="0.01" placeholder="120">
+        <input id="newPrice" type="number" step="0.01">
       </div>
-
     </div>
 
     <div class="two">
-
       <div class="field">
         <label>Currency</label>
-
-        <select id="currencyInput">
-          <option value="EUR">EUR</option>
-          <option value="USD">USD</option>
-          <option value="GBP">GBP</option>
-          <option value="CHF">CHF</option>
+        <select id="newCurrency">
+          <option>EUR</option>
+          <option>USD</option>
+          <option>GBP</option>
+          <option>CHF</option>
         </select>
       </div>
 
       <div class="field">
         <label>Category</label>
-
-        <select id="categoryInput">
+        <select id="newCategory">
           <option>Watches</option>
           <option>Jewelry</option>
           <option>Hoodies</option>
@@ -583,763 +690,609 @@ button{
           <option>Other</option>
         </select>
       </div>
-
     </div>
 
     <div class="field">
-      <label>Product link</label>
-      <input id="urlInput" placeholder="https://store.com/product">
+      <label>Color</label>
+      <input id="newColor" placeholder="Black">
     </div>
 
     <div class="field">
-      <label>Image link</label>
-      <input id="imageInput" placeholder="https://...image.jpg">
+      <label>My size</label>
+      <input id="newSize" placeholder="M">
+    </div>
+
+    <div class="field">
+      <label>Available sizes</label>
+      <input id="newSizes" placeholder="XS, S, M, L, XL">
+    </div>
+
+    <div class="field">
+      <label>Product URL</label>
+      <input id="newUrl">
+    </div>
+
+    <div class="field">
+      <label>Image URLs</label>
+      <textarea id="newImages" placeholder="Paste one image URL per line"></textarea>
+    </div>
+
+    <div class="field">
+      <label>Notes</label>
+      <textarea id="newNotes"></textarea>
     </div>
 
     <div class="modal-actions">
-
-      <button class="btn" id="cancelBtn">
-        Cancel
-      </button>
-
-      <button class="btn primary" id="saveBtn">
-        Save item
-      </button>
-
+      <button class="btn" id="cancelAdd">Cancel</button>
+      <button class="btn primary" id="saveNew">Add to Wishlist</button>
     </div>
 
   </div>
+</div>
 
+
+<!-- DETAIL -->
+
+<div class="overlay" id="detailOverlay">
+  <div class="detail">
+    <div class="detail-grid">
+
+      <div class="gallery">
+        <div class="main-photo">
+          <img id="detailMainImage">
+        </div>
+
+        <div class="thumbnails" id="thumbnails"></div>
+      </div>
+
+      <div class="info-panel">
+
+        <button class="close" id="closeDetail">×</button>
+
+        <div class="detail-brand" id="detailBrand"></div>
+        <h2 class="detail-name" id="detailName"></h2>
+        <div class="detail-price" id="detailPrice"></div>
+
+        <div class="two">
+          <div class="field">
+            <label>Name</label>
+            <input id="editName">
+          </div>
+
+          <div class="field">
+            <label>Brand</label>
+            <input id="editBrand">
+          </div>
+        </div>
+
+        <div class="two">
+          <div class="field">
+            <label>Price</label>
+            <input id="editPrice" type="number" step="0.01">
+          </div>
+
+          <div class="field">
+            <label>Currency</label>
+            <select id="editCurrency">
+              <option>EUR</option>
+              <option>USD</option>
+              <option>GBP</option>
+              <option>CHF</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="two">
+          <div class="field">
+            <label>Category</label>
+            <select id="editCategory">
+              <option>Watches</option>
+              <option>Jewelry</option>
+              <option>Hoodies</option>
+              <option>T-Shirts</option>
+              <option>Shirts</option>
+              <option>Jackets</option>
+              <option>Pants</option>
+              <option>Shoes</option>
+              <option>Accessories</option>
+              <option>Other</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label>Color</label>
+            <input id="editColor">
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Available sizes</label>
+          <div class="size-row" id="sizeButtons"></div>
+        </div>
+
+        <div class="field">
+          <label>My size</label>
+          <input id="editSize">
+        </div>
+
+        <div class="field">
+          <label>Notes</label>
+          <textarea id="editNotes"></textarea>
+        </div>
+
+        <div class="field">
+          <label>Product URL</label>
+          <input id="editUrl">
+        </div>
+
+        <div class="field">
+          <label>Image URLs — one per line</label>
+          <textarea id="editImages"></textarea>
+        </div>
+
+        <div class="detail-actions">
+          <button class="btn" id="detailFavorite">♡ Favorite</button>
+          <button class="btn" id="detailPriority">⚡ Buy next</button>
+          <button class="btn primary" id="saveDetail">Save Changes</button>
+          <a class="store-link" id="storeLink" target="_blank" rel="noopener">Visit Store ↗</a>
+          <button class="btn danger" id="deleteDetail">Delete</button>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
 </div>
 
 
 <script>
+const STORAGE_KEY = "wishlist-v2";
 
-const STORAGE_KEY = "wishClosetItemsV1";
-
-let items = JSON.parse(
-  localStorage.getItem(STORAGE_KEY) || "[]"
-);
-
+let items = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
 let activeCategory = "Everything";
-let editingId = null;
+let selectedId = null;
 
 const grid = document.getElementById("grid");
 const categories = document.getElementById("categories");
 const searchInput = document.getElementById("searchInput");
 const sortSelect = document.getElementById("sortSelect");
-const overlay = document.getElementById("overlay");
 
+const addOverlay = document.getElementById("addOverlay");
+const detailOverlay = document.getElementById("detailOverlay");
 
-function saveStorage(){
-  localStorage.setItem(
-    STORAGE_KEY,
-    JSON.stringify(items)
-  );
+const FALLBACK_IMAGE =
+"https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1200&q=85";
+
+function save(){
+  localStorage.setItem(STORAGE_KEY,JSON.stringify(items));
 }
 
-
-function escapeHTML(value){
-
-  return String(value || "")
+function esc(v){
+  return String(v || "")
     .replaceAll("&","&amp;")
     .replaceAll("<","&lt;")
     .replaceAll(">","&gt;")
     .replaceAll('"',"&quot;");
-
 }
 
-
-function formatMoney(item){
-
+function money(item){
   try{
-
-    return new Intl.NumberFormat(
-      undefined,
-      {
-        style:"currency",
-        currency:item.currency || "EUR"
-      }
-    ).format(item.price);
-
+    return new Intl.NumberFormat(undefined,{
+      style:"currency",
+      currency:item.currency || "EUR"
+    }).format(item.price);
   }catch{
-
     return item.price + " " + item.currency;
-
   }
-
 }
-
 
 function getCategories(){
-
-  const existing = [
-    ...new Set(
-      items.map(i => i.category)
-    )
-  ];
-
   return [
     "Everything",
     "Favorites",
-    ...existing
+    ...new Set(items.map(x=>x.category).filter(Boolean))
   ];
-
 }
-
 
 function renderCategories(){
+  categories.innerHTML="";
 
-  categories.innerHTML = "";
+  getCategories().forEach(cat=>{
+    const b=document.createElement("button");
+    b.className="pill"+(cat===activeCategory?" active":"");
 
-  getCategories().forEach(name => {
+    let n=items.length;
 
-    const button =
-      document.createElement("button");
-
-    button.className =
-      "pill" +
-      (
-        activeCategory === name
-          ? " active"
-          : ""
-      );
-
-    let total = 0;
-
-    if(name === "Everything"){
-      total = items.length;
+    if(cat==="Favorites"){
+      n=items.filter(x=>x.favorite).length;
+    }else if(cat!=="Everything"){
+      n=items.filter(x=>x.category===cat).length;
     }
 
-    else if(name === "Favorites"){
-      total =
-        items.filter(i => i.favorite).length;
-    }
+    b.textContent=cat+" "+n;
 
-    else{
-      total =
-        items.filter(
-          i => i.category === name
-        ).length;
-    }
-
-    button.textContent =
-      name + " " + total;
-
-    button.onclick = () => {
-
-      activeCategory = name;
-
+    b.onclick=()=>{
+      activeCategory=cat;
       render();
-
     };
 
-    categories.appendChild(button);
-
+    categories.appendChild(b);
   });
-
 }
 
+function visibleItems(){
+  let arr=[...items];
 
-function filteredItems(){
-
-  let result = [...items];
-
-  if(activeCategory === "Favorites"){
-
-    result =
-      result.filter(
-        i => i.favorite
-      );
-
+  if(activeCategory==="Favorites"){
+    arr=arr.filter(x=>x.favorite);
+  }else if(activeCategory!=="Everything"){
+    arr=arr.filter(x=>x.category===activeCategory);
   }
 
-  else if(activeCategory !== "Everything"){
+  const q=searchInput.value.trim().toLowerCase();
 
-    result =
-      result.filter(
-        i => i.category === activeCategory
-      );
-
-  }
-
-
-  const query =
-    searchInput.value
-      .trim()
-      .toLowerCase();
-
-  if(query){
-
-    result =
-      result.filter(item =>
-
-        (
-          item.name +
-          " " +
-          item.brand +
-          " " +
-          item.category
-        )
-        .toLowerCase()
-        .includes(query)
-
-      );
-
-  }
-
-
-  if(sortSelect.value === "priority"){
-
-    result.sort(
-      (a,b) =>
-        Number(b.priority) -
-        Number(a.priority)
+  if(q){
+    arr=arr.filter(x=>
+      (
+        (x.name||"")+" "+
+        (x.brand||"")+" "+
+        (x.category||"")+" "+
+        (x.color||"")
+      ).toLowerCase().includes(q)
     );
-
   }
 
-  if(sortSelect.value === "low"){
-
-    result.sort(
-      (a,b) => a.price - b.price
-    );
-
+  if(sortSelect.value==="low"){
+    arr.sort((a,b)=>Number(a.price)-Number(b.price));
   }
 
-  if(sortSelect.value === "high"){
-
-    result.sort(
-      (a,b) => b.price - a.price
-    );
-
+  if(sortSelect.value==="high"){
+    arr.sort((a,b)=>Number(b.price)-Number(a.price));
   }
 
-  if(sortSelect.value === "az"){
-
-    result.sort(
-      (a,b) =>
-        a.name.localeCompare(b.name)
-    );
-
+  if(sortSelect.value==="az"){
+    arr.sort((a,b)=>(a.name||"").localeCompare(b.name||""));
   }
 
-  if(sortSelect.value === "recent"){
-
-    result.sort(
-      (a,b) =>
-        b.createdAt - a.createdAt
-    );
-
+  if(sortSelect.value==="recent"){
+    arr.sort((a,b)=>(b.createdAt||0)-(a.createdAt||0));
   }
 
+  if(sortSelect.value==="priority"){
+    arr.sort((a,b)=>Number(b.priority)-Number(a.priority));
+  }
 
-  result.sort((a,b) => {
-
-    if(a.priority && !b.priority){
-      return -1;
-    }
-
-    if(!a.priority && b.priority){
-      return 1;
-    }
-
+  arr.sort((a,b)=>{
+    if(a.priority&&!b.priority)return -1;
+    if(!a.priority&&b.priority)return 1;
     return 0;
-
   });
 
-
-  return result;
-
+  return arr;
 }
-
 
 function renderGrid(){
+  const arr=visibleItems();
 
-  const result = filteredItems();
+  document.getElementById("sectionTitle").textContent=activeCategory;
+  document.getElementById("count").textContent=
+    arr.length+" "+(arr.length===1?"item":"items");
 
-  document.getElementById(
-    "sectionTitle"
-  ).textContent = activeCategory;
-
-  document.getElementById(
-    "count"
-  ).textContent =
-    result.length +
-    (
-      result.length === 1
-        ? " item"
-        : " items"
-    );
-
-
-  if(!result.length){
-
-    grid.innerHTML = `
+  if(!arr.length){
+    grid.innerHTML=`
       <div class="empty">
-
-        <h2>
-          Nothing here yet
-        </h2>
-
-        <p>
-          Add your first item using the Add Item button.
-        </p>
-
-      </div>
-    `;
-
+        <h2>Nothing here yet</h2>
+        <p>Add your first item using the Add Item button.</p>
+      </div>`;
     return;
-
   }
 
+  grid.innerHTML=arr.map(item=>{
+    const image=(item.images && item.images[0]) || FALLBACK_IMAGE;
 
-  grid.innerHTML =
-    result.map(item => `
+    return `
+      <article class="card" onclick="openDetail('${item.id}')">
 
-      <article class="card">
-
-        <button
-          class="priority ${item.priority ? "on" : ""}"
-          onclick="togglePriority('${item.id}')"
-          title="Buy next"
-        >
+        <button class="circle priority ${item.priority?"on":""}"
+          onclick="event.stopPropagation();togglePriority('${item.id}')">
           ⚡
         </button>
 
-        <button
-          class="heart ${item.favorite ? "on" : ""}"
-          onclick="toggleFavorite('${item.id}')"
-          title="Favorite"
-        >
-          ${item.favorite ? "♥" : "♡"}
+        <button class="circle favorite ${item.favorite?"on":""}"
+          onclick="event.stopPropagation();toggleFavorite('${item.id}')">
+          ${item.favorite?"♥":"♡"}
         </button>
 
-
-        <div class="image">
-
-          ${
-            item.image
-
-            ? `
-              <img
-                src="${escapeHTML(item.image)}"
-                alt="${escapeHTML(item.name)}"
-                onerror="this.src='https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1000&q=80'"
-              >
-            `
-
-            : `
-              <img
-                src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1000&q=80"
-                alt=""
-              >
-            `
-          }
-
+        <div class="card-image">
+          <img src="${esc(image)}"
+            onerror="this.src='${FALLBACK_IMAGE}'">
         </div>
-
 
         <div class="card-body">
 
           <div class="brand">
-            ${escapeHTML(item.brand || "Unknown")}
+            ${esc(item.brand || "Unknown")}
           </div>
 
           <div class="name">
-            ${escapeHTML(item.name)}
+            ${esc(item.name)}
           </div>
-
 
           <div class="row">
-
-            <div class="price">
-              ${formatMoney(item)}
-            </div>
-
-            <div class="tag">
-              ${escapeHTML(item.category)}
-            </div>
-
+            <div class="price">${money(item)}</div>
+            <div class="tag">${esc(item.category || "Other")}</div>
           </div>
 
-
-          ${
-            item.priority
-
-            ? `
-              <div class="buy-next">
-                ⚡ Buy next
-              </div>
-            `
-
-            : ""
-          }
-
-
-          <div class="actions">
-
-            <a
-              class="open"
-              href="${escapeHTML(item.url || "#")}"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              View ↗
-            </a>
-
-            <button
-              class="small-btn"
-              onclick="editItem('${item.id}')"
-              title="Edit"
-            >
-              ✎
-            </button>
-
-            <button
-              class="small-btn"
-              onclick="deleteItem('${item.id}')"
-              title="Delete"
-            >
-              🗑
-            </button>
-
-          </div>
+          ${item.priority ? `<div class="buy-next">⚡ Buy next</div>` : ""}
 
         </div>
-
       </article>
-
-    `).join("");
-
+    `;
+  }).join("");
 }
-
 
 function render(){
-
   renderCategories();
   renderGrid();
-
 }
 
-
-window.toggleFavorite = function(id){
-
-  const item =
-    items.find(i => i.id === id);
-
-  if(!item) return;
-
-  item.favorite = !item.favorite;
-
-  saveStorage();
+window.toggleFavorite=function(id){
+  const item=items.find(x=>x.id===id);
+  if(!item)return;
+  item.favorite=!item.favorite;
+  save();
   render();
-
 };
 
-
-window.togglePriority = function(id){
-
-  const item =
-    items.find(i => i.id === id);
-
-  if(!item) return;
-
-  item.priority = !item.priority;
-
-  saveStorage();
+window.togglePriority=function(id){
+  const item=items.find(x=>x.id===id);
+  if(!item)return;
+  item.priority=!item.priority;
+  save();
   render();
-
 };
 
-
-window.deleteItem = function(id){
-
-  const item =
-    items.find(i => i.id === id);
-
-  if(!item) return;
-
-  const yes =
-    confirm(
-      `Remove "${item.name}" from your wishlist?`
-    );
-
-  if(!yes) return;
-
-  items =
-    items.filter(
-      i => i.id !== id
-    );
-
-  saveStorage();
-  render();
-
+document.getElementById("addBtn").onclick=()=>{
+  resetAddForm();
+  addOverlay.classList.add("show");
 };
 
-
-function resetForm(){
-
-  editingId = null;
-
-  document.getElementById(
-    "modalTitle"
-  ).textContent = "Add item";
-
-  document.getElementById(
-    "nameInput"
-  ).value = "";
-
-  document.getElementById(
-    "brandInput"
-  ).value = "";
-
-  document.getElementById(
-    "priceInput"
-  ).value = "";
-
-  document.getElementById(
-    "currencyInput"
-  ).value = "EUR";
-
-  document.getElementById(
-    "categoryInput"
-  ).value = "Other";
-
-  document.getElementById(
-    "urlInput"
-  ).value = "";
-
-  document.getElementById(
-    "imageInput"
-  ).value = "";
-
-}
-
-
-function openModal(){
-
-  overlay.classList.add("show");
-
-}
-
-
-function closeModal(){
-
-  overlay.classList.remove("show");
-
-}
-
-
-document.getElementById(
-  "addBtn"
-).onclick = () => {
-
-  resetForm();
-  openModal();
-
+document.getElementById("cancelAdd").onclick=()=>{
+  addOverlay.classList.remove("show");
 };
 
+addOverlay.onclick=e=>{
+  if(e.target===addOverlay){
+    addOverlay.classList.remove("show");
+  }
+};
 
-document.getElementById(
-  "cancelBtn"
-).onclick = closeModal;
+function resetAddForm(){
+  [
+    "importUrl","newName","newBrand","newPrice","newColor",
+    "newSize","newSizes","newUrl","newImages","newNotes"
+  ].forEach(id=>document.getElementById(id).value="");
 
+  document.getElementById("newCurrency").value="EUR";
+  document.getElementById("newCategory").value="Other";
 
-overlay.onclick = event => {
+  document.getElementById("importNotice").textContent=
+    "Automatic product reading needs the free importer backend we will connect after this update.";
+}
 
-  if(event.target === overlay){
+document.getElementById("importBtn").onclick=()=>{
+  const url=document.getElementById("importUrl").value.trim();
 
-    closeModal();
-
+  if(!url){
+    document.getElementById("importNotice").textContent=
+      "Paste a product URL first.";
+    return;
   }
 
+  document.getElementById("newUrl").value=url;
+
+  document.getElementById("importNotice").textContent=
+    "The interface is ready. The next step is connecting the automatic importer backend.";
 };
 
-
-window.editItem = function(id){
-
-  const item =
-    items.find(i => i.id === id);
-
-  if(!item) return;
-
-  editingId = id;
-
-  document.getElementById(
-    "modalTitle"
-  ).textContent = "Edit item";
-
-  document.getElementById(
-    "nameInput"
-  ).value = item.name || "";
-
-  document.getElementById(
-    "brandInput"
-  ).value = item.brand || "";
-
-  document.getElementById(
-    "priceInput"
-  ).value = item.price || "";
-
-  document.getElementById(
-    "currencyInput"
-  ).value = item.currency || "EUR";
-
-  document.getElementById(
-    "categoryInput"
-  ).value = item.category || "Other";
-
-  document.getElementById(
-    "urlInput"
-  ).value = item.url || "";
-
-  document.getElementById(
-    "imageInput"
-  ).value = item.image || "";
-
-  openModal();
-
-};
-
-
-document.getElementById(
-  "saveBtn"
-).onclick = () => {
-
-  const name =
-    document.getElementById(
-      "nameInput"
-    ).value.trim();
-
-  const price =
-    Number(
-      document.getElementById(
-        "priceInput"
-      ).value
-    );
-
+document.getElementById("saveNew").onclick=()=>{
+  const name=document.getElementById("newName").value.trim();
 
   if(!name){
-
-    alert(
-      "Please enter a product name."
-    );
-
+    alert("Add a product name.");
     return;
-
   }
 
+  const images=document.getElementById("newImages").value
+    .split("\n")
+    .map(x=>x.trim())
+    .filter(Boolean);
 
-  if(
-    Number.isNaN(price)
-    || price < 0
-  ){
+  const sizes=document.getElementById("newSizes").value
+    .split(",")
+    .map(x=>x.trim())
+    .filter(Boolean);
 
-    alert(
-      "Please enter a valid price."
-    );
-
-    return;
-
-  }
-
-
-  const data = {
-
+  items.unshift({
+    id:crypto.randomUUID ? crypto.randomUUID() : String(Date.now()),
     name,
+    brand:document.getElementById("newBrand").value.trim(),
+    price:Number(document.getElementById("newPrice").value)||0,
+    currency:document.getElementById("newCurrency").value,
+    category:document.getElementById("newCategory").value,
+    color:document.getElementById("newColor").value.trim(),
+    mySize:document.getElementById("newSize").value.trim(),
+    sizes,
+    url:document.getElementById("newUrl").value.trim(),
+    images,
+    notes:document.getElementById("newNotes").value.trim(),
+    favorite:false,
+    priority:false,
+    createdAt:Date.now()
+  });
 
-    brand:
-      document.getElementById(
-        "brandInput"
-      ).value.trim(),
-
-    price,
-
-    currency:
-      document.getElementById(
-        "currencyInput"
-      ).value,
-
-    category:
-      document.getElementById(
-        "categoryInput"
-      ).value,
-
-    url:
-      document.getElementById(
-        "urlInput"
-      ).value.trim(),
-
-    image:
-      document.getElementById(
-        "imageInput"
-      ).value.trim()
-
-  };
-
-
-  if(editingId){
-
-    const item =
-      items.find(
-        i => i.id === editingId
-      );
-
-    Object.assign(
-      item,
-      data
-    );
-
-  }
-
-  else{
-
-    items.unshift({
-
-      id:
-        crypto.randomUUID
-          ? crypto.randomUUID()
-          : String(Date.now()),
-
-      ...data,
-
-      favorite:false,
-
-      priority:false,
-
-      createdAt:Date.now()
-
-    });
-
-  }
-
-
-  saveStorage();
-
-  closeModal();
-
-  resetForm();
-
+  save();
+  addOverlay.classList.remove("show");
   render();
-
 };
 
+window.openDetail=function(id){
+  const item=items.find(x=>x.id===id);
+  if(!item)return;
 
-searchInput.addEventListener(
-  "input",
-  renderGrid
-);
+  selectedId=id;
 
+  document.getElementById("detailBrand").textContent=item.brand||"Unknown";
+  document.getElementById("detailName").textContent=item.name||"Untitled";
+  document.getElementById("detailPrice").textContent=money(item);
 
-sortSelect.addEventListener(
-  "change",
-  renderGrid
-);
+  document.getElementById("editName").value=item.name||"";
+  document.getElementById("editBrand").value=item.brand||"";
+  document.getElementById("editPrice").value=item.price||"";
+  document.getElementById("editCurrency").value=item.currency||"EUR";
+  document.getElementById("editCategory").value=item.category||"Other";
+  document.getElementById("editColor").value=item.color||"";
+  document.getElementById("editSize").value=item.mySize||"";
+  document.getElementById("editNotes").value=item.notes||"";
+  document.getElementById("editUrl").value=item.url||"";
+  document.getElementById("editImages").value=(item.images||[]).join("\n");
 
+  document.getElementById("storeLink").href=item.url||"#";
+
+  const images=(item.images&&item.images.length)
+    ? item.images
+    : [FALLBACK_IMAGE];
+
+  document.getElementById("detailMainImage").src=images[0];
+
+  const thumbs=document.getElementById("thumbnails");
+
+  thumbs.innerHTML=images.map((img,index)=>`
+    <button class="thumb ${index===0?"active":""}"
+      onclick="changeImage('${esc(img)}',this)">
+      <img src="${esc(img)}">
+    </button>
+  `).join("");
+
+  renderSizes(item);
+
+  document.getElementById("detailFavorite").textContent=
+    item.favorite ? "♥ Favorited" : "♡ Favorite";
+
+  document.getElementById("detailPriority").textContent=
+    item.priority ? "⚡ Buy next ✓" : "⚡ Buy next";
+
+  detailOverlay.classList.add("show");
+};
+
+window.changeImage=function(src,button){
+  document.getElementById("detailMainImage").src=src;
+
+  document.querySelectorAll(".thumb").forEach(x=>x.classList.remove("active"));
+  button.classList.add("active");
+};
+
+function renderSizes(item){
+  const box=document.getElementById("sizeButtons");
+
+  const sizes=(item.sizes&&item.sizes.length)
+    ? item.sizes
+    : ["XS","S","M","L","XL"];
+
+  box.innerHTML=sizes.map(size=>`
+    <button class="size ${item.mySize===size?"selected":""}"
+      onclick="selectSize('${esc(size)}')">
+      ${esc(size)}
+    </button>
+  `).join("");
+}
+
+window.selectSize=function(size){
+  document.getElementById("editSize").value=size;
+
+  document.querySelectorAll(".size").forEach(btn=>{
+    btn.classList.toggle("selected",btn.textContent.trim()===size);
+  });
+};
+
+document.getElementById("closeDetail").onclick=()=>{
+  detailOverlay.classList.remove("show");
+};
+
+detailOverlay.onclick=e=>{
+  if(e.target===detailOverlay){
+    detailOverlay.classList.remove("show");
+  }
+};
+
+document.getElementById("detailFavorite").onclick=()=>{
+  const item=items.find(x=>x.id===selectedId);
+  if(!item)return;
+
+  item.favorite=!item.favorite;
+  save();
+  openDetail(selectedId);
+  render();
+};
+
+document.getElementById("detailPriority").onclick=()=>{
+  const item=items.find(x=>x.id===selectedId);
+  if(!item)return;
+
+  item.priority=!item.priority;
+  save();
+  openDetail(selectedId);
+  render();
+};
+
+document.getElementById("saveDetail").onclick=()=>{
+  const item=items.find(x=>x.id===selectedId);
+  if(!item)return;
+
+  item.name=document.getElementById("editName").value.trim();
+  item.brand=document.getElementById("editBrand").value.trim();
+  item.price=Number(document.getElementById("editPrice").value)||0;
+  item.currency=document.getElementById("editCurrency").value;
+  item.category=document.getElementById("editCategory").value;
+  item.color=document.getElementById("editColor").value.trim();
+  item.mySize=document.getElementById("editSize").value.trim();
+  item.notes=document.getElementById("editNotes").value.trim();
+  item.url=document.getElementById("editUrl").value.trim();
+
+  item.images=document.getElementById("editImages").value
+    .split("\n")
+    .map(x=>x.trim())
+    .filter(Boolean);
+
+  save();
+  detailOverlay.classList.remove("show");
+  render();
+};
+
+document.getElementById("deleteDetail").onclick=()=>{
+  const item=items.find(x=>x.id===selectedId);
+  if(!item)return;
+
+  if(!confirm(`Delete "${item.name}"?`))return;
+
+  items=items.filter(x=>x.id!==selectedId);
+  save();
+
+  detailOverlay.classList.remove("show");
+  render();
+};
+
+searchInput.addEventListener("input",renderGrid);
+sortSelect.addEventListener("change",renderGrid);
+
+document.addEventListener("keydown",e=>{
+  if(e.key==="Escape"){
+    addOverlay.classList.remove("show");
+    detailOverlay.classList.remove("show");
+  }
+});
 
 render();
-
 </script>
 
 </body>
