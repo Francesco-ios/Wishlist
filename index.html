@@ -1,0 +1,1346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Wishlist</title>
+
+<style>
+:root{
+  --bg:#f5f5f7;
+  --card:#ffffff;
+  --text:#1d1d1f;
+  --muted:#6e6e73;
+  --blue:#0071e3;
+  --red:#ff3b30;
+  --orange:#ff9500;
+  --glass:rgba(255,255,255,.72);
+  --border:rgba(0,0,0,.07);
+}
+
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  background:
+    radial-gradient(circle at 10% 0%, rgba(160,210,255,.32), transparent 28%),
+    radial-gradient(circle at 95% 10%, rgba(255,205,220,.28), transparent 25%),
+    var(--bg);
+  color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,sans-serif;
+  min-height:100vh;
+}
+
+button,input,select{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+.topbar{
+  position:sticky;
+  top:0;
+  z-index:50;
+  backdrop-filter:blur(28px) saturate(180%);
+  -webkit-backdrop-filter:blur(28px) saturate(180%);
+  background:rgba(255,255,255,.65);
+  border-bottom:1px solid rgba(0,0,0,.05);
+}
+
+.topbar-inner{
+  max-width:1280px;
+  margin:auto;
+  padding:14px 18px;
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+
+.logo{
+  font-size:20px;
+  font-weight:700;
+  letter-spacing:-.04em;
+  white-space:nowrap;
+}
+
+.search{
+  flex:1;
+  position:relative;
+}
+
+.search input{
+  width:100%;
+  border:none;
+  outline:none;
+  background:rgba(118,118,128,.10);
+  border-radius:14px;
+  padding:11px 14px 11px 38px;
+}
+
+.search span{
+  position:absolute;
+  left:13px;
+  top:50%;
+  transform:translateY(-50%);
+  color:#8e8e93;
+}
+
+.btn{
+  border:none;
+  border-radius:14px;
+  padding:10px 15px;
+  background:rgba(118,118,128,.10);
+}
+
+.btn.primary{
+  background:var(--blue);
+  color:white;
+  font-weight:600;
+}
+
+.hero{
+  max-width:1280px;
+  margin:auto;
+  padding:55px 18px 30px;
+}
+
+.hero h1{
+  font-size:clamp(42px,7vw,78px);
+  letter-spacing:-.065em;
+  line-height:.95;
+  margin:0;
+  max-width:850px;
+}
+
+.hero p{
+  margin:20px 0 0;
+  color:var(--muted);
+  max-width:600px;
+  font-size:18px;
+  line-height:1.5;
+}
+
+.toolbar{
+  max-width:1280px;
+  margin:auto;
+  padding:0 18px 20px;
+  display:flex;
+  gap:10px;
+  align-items:center;
+  flex-wrap:wrap;
+}
+
+.categories{
+  display:flex;
+  gap:8px;
+  overflow-x:auto;
+  flex:1;
+  scrollbar-width:none;
+}
+
+.categories::-webkit-scrollbar{
+  display:none;
+}
+
+.pill{
+  border:none;
+  white-space:nowrap;
+  background:rgba(255,255,255,.72);
+  border:1px solid rgba(0,0,0,.05);
+  border-radius:999px;
+  padding:9px 14px;
+  color:var(--muted);
+  backdrop-filter:blur(20px);
+}
+
+.pill.active{
+  background:#1d1d1f;
+  color:white;
+}
+
+.sort{
+  border:none;
+  outline:none;
+  border-radius:999px;
+  background:rgba(255,255,255,.75);
+  padding:10px 15px;
+}
+
+.main{
+  max-width:1280px;
+  margin:auto;
+  padding:0 18px 80px;
+}
+
+.section-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:end;
+  margin:8px 0 18px;
+}
+
+.section-head h2{
+  margin:0;
+  font-size:28px;
+  letter-spacing:-.04em;
+}
+
+.count{
+  color:var(--muted);
+  font-size:14px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+  gap:18px;
+}
+
+.card{
+  background:rgba(255,255,255,.82);
+  border:1px solid rgba(255,255,255,.9);
+  border-radius:24px;
+  overflow:hidden;
+  box-shadow:0 12px 35px rgba(20,30,50,.07);
+  backdrop-filter:blur(25px) saturate(170%);
+  -webkit-backdrop-filter:blur(25px) saturate(170%);
+  transition:.25s ease;
+  position:relative;
+}
+
+.card:hover{
+  transform:translateY(-4px);
+  box-shadow:0 22px 55px rgba(20,30,50,.12);
+}
+
+.image{
+  margin:10px;
+  aspect-ratio:1/1.08;
+  border-radius:18px;
+  overflow:hidden;
+  background:#ededf0;
+}
+
+.image img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+
+.card-body{
+  padding:8px 16px 16px;
+}
+
+.brand{
+  color:#86868b;
+  font-size:12px;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+}
+
+.name{
+  font-size:18px;
+  font-weight:650;
+  margin:6px 0 12px;
+  line-height:1.25;
+}
+
+.row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+}
+
+.price{
+  font-size:18px;
+  font-weight:650;
+}
+
+.tag{
+  font-size:11px;
+  color:var(--muted);
+  background:rgba(118,118,128,.10);
+  border-radius:999px;
+  padding:5px 8px;
+}
+
+.actions{
+  display:flex;
+  gap:7px;
+  margin-top:14px;
+}
+
+.open{
+  flex:1;
+  text-align:center;
+  text-decoration:none;
+  color:white;
+  background:#1d1d1f;
+  border-radius:12px;
+  padding:9px 10px;
+  font-size:13px;
+}
+
+.small-btn{
+  width:36px;
+  height:36px;
+  border:none;
+  border-radius:11px;
+  background:rgba(118,118,128,.10);
+}
+
+.heart{
+  position:absolute;
+  top:20px;
+  right:20px;
+  width:39px;
+  height:39px;
+  border-radius:50%;
+  border:none;
+  background:rgba(255,255,255,.78);
+  backdrop-filter:blur(15px);
+  font-size:18px;
+}
+
+.heart.on{
+  color:var(--red);
+}
+
+.priority{
+  position:absolute;
+  top:20px;
+  left:20px;
+  width:39px;
+  height:39px;
+  border-radius:50%;
+  border:none;
+  background:rgba(255,255,255,.78);
+  backdrop-filter:blur(15px);
+  font-size:18px;
+}
+
+.priority.on{
+  background:var(--orange);
+  color:white;
+}
+
+.buy-next{
+  display:inline-block;
+  margin:7px 0 0;
+  color:#b35f00;
+  background:rgba(255,149,0,.14);
+  padding:5px 8px;
+  border-radius:999px;
+  font-size:11px;
+  font-weight:700;
+}
+
+.empty{
+  padding:80px 20px;
+  text-align:center;
+  color:var(--muted);
+  grid-column:1/-1;
+}
+
+.overlay{
+  position:fixed;
+  inset:0;
+  z-index:100;
+  display:none;
+  place-items:center;
+  padding:20px;
+  background:rgba(0,0,0,.22);
+  backdrop-filter:blur(18px);
+}
+
+.overlay.show{
+  display:grid;
+}
+
+.modal{
+  width:min(560px,100%);
+  max-height:90vh;
+  overflow:auto;
+  background:rgba(255,255,255,.86);
+  backdrop-filter:blur(35px) saturate(180%);
+  -webkit-backdrop-filter:blur(35px) saturate(180%);
+  border:1px solid rgba(255,255,255,.95);
+  border-radius:28px;
+  padding:24px;
+  box-shadow:0 40px 100px rgba(0,0,0,.18);
+}
+
+.modal h2{
+  margin:0 0 6px;
+  font-size:28px;
+  letter-spacing:-.04em;
+}
+
+.modal p{
+  color:var(--muted);
+  margin:0 0 20px;
+  line-height:1.45;
+}
+
+.field{
+  margin-bottom:12px;
+}
+
+.field label{
+  display:block;
+  font-size:12px;
+  color:var(--muted);
+  margin:0 0 6px 4px;
+}
+
+.field input,
+.field select{
+  width:100%;
+  border:none;
+  outline:none;
+  border-radius:13px;
+  background:white;
+  padding:12px 13px;
+  border:1px solid rgba(0,0,0,.07);
+}
+
+.two{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+
+.modal-actions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:9px;
+  margin-top:18px;
+}
+
+.note{
+  font-size:12px;
+  color:var(--muted);
+  background:rgba(0,113,227,.08);
+  padding:10px 12px;
+  border-radius:12px;
+  margin-bottom:15px;
+}
+
+@media(max-width:650px){
+  .hero{
+    padding-top:35px;
+  }
+
+  .topbar-inner{
+    flex-wrap:wrap;
+  }
+
+  .search{
+    order:3;
+    width:100%;
+    flex-basis:100%;
+  }
+
+  .hero p{
+    font-size:16px;
+  }
+
+  .grid{
+    grid-template-columns:1fr;
+  }
+
+  .two{
+    grid-template-columns:1fr;
+  }
+
+  .desktop-text{
+    display:none;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="logo">Wishlist</div>
+
+    <div class="search">
+      <span>⌕</span>
+      <input id="searchInput" placeholder="Search names & brands..." />
+    </div>
+
+    <button class="btn primary" id="addBtn">
+      + <span class="desktop-text">Add Item</span>
+    </button>
+  </div>
+</header>
+
+
+<section class="hero">
+  <h1>Your collection.<br>Beautifully organized.</h1>
+  <p>
+    Save clothes, watches, jewelry and anything else you want.
+    Search it, sort it, favorite it and decide what to buy next.
+  </p>
+</section>
+
+
+<section class="toolbar">
+
+  <div class="categories" id="categories"></div>
+
+  <select class="sort" id="sortSelect">
+    <option value="recent">Recently Added</option>
+    <option value="priority">Buy Next First</option>
+    <option value="low">Price: Low → High</option>
+    <option value="high">Price: High → Low</option>
+    <option value="az">Name: A → Z</option>
+  </select>
+
+</section>
+
+
+<main class="main">
+
+  <div class="section-head">
+    <h2 id="sectionTitle">Everything</h2>
+    <div class="count" id="count"></div>
+  </div>
+
+  <div class="grid" id="grid"></div>
+
+</main>
+
+
+<div class="overlay" id="overlay">
+
+  <div class="modal">
+
+    <h2 id="modalTitle">Add item</h2>
+
+    <p>
+      Add a product to your collection.
+    </p>
+
+    <div class="note">
+      For now, paste the product details manually. We can add automatic product-link importing later using a secure backend.
+    </div>
+
+    <div class="field">
+      <label>Product name</label>
+      <input id="nameInput" placeholder="e.g. Oversized Hoodie">
+    </div>
+
+    <div class="two">
+
+      <div class="field">
+        <label>Brand</label>
+        <input id="brandInput" placeholder="e.g. Essentials">
+      </div>
+
+      <div class="field">
+        <label>Price</label>
+        <input id="priceInput" type="number" step="0.01" placeholder="120">
+      </div>
+
+    </div>
+
+    <div class="two">
+
+      <div class="field">
+        <label>Currency</label>
+
+        <select id="currencyInput">
+          <option value="EUR">EUR</option>
+          <option value="USD">USD</option>
+          <option value="GBP">GBP</option>
+          <option value="CHF">CHF</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>Category</label>
+
+        <select id="categoryInput">
+          <option>Watches</option>
+          <option>Jewelry</option>
+          <option>Hoodies</option>
+          <option>T-Shirts</option>
+          <option>Shirts</option>
+          <option>Jackets</option>
+          <option>Pants</option>
+          <option>Shoes</option>
+          <option>Accessories</option>
+          <option>Other</option>
+        </select>
+      </div>
+
+    </div>
+
+    <div class="field">
+      <label>Product link</label>
+      <input id="urlInput" placeholder="https://store.com/product">
+    </div>
+
+    <div class="field">
+      <label>Image link</label>
+      <input id="imageInput" placeholder="https://...image.jpg">
+    </div>
+
+    <div class="modal-actions">
+
+      <button class="btn" id="cancelBtn">
+        Cancel
+      </button>
+
+      <button class="btn primary" id="saveBtn">
+        Save item
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<script>
+
+const STORAGE_KEY = "wishClosetItemsV1";
+
+let items = JSON.parse(
+  localStorage.getItem(STORAGE_KEY) || "[]"
+);
+
+let activeCategory = "Everything";
+let editingId = null;
+
+const grid = document.getElementById("grid");
+const categories = document.getElementById("categories");
+const searchInput = document.getElementById("searchInput");
+const sortSelect = document.getElementById("sortSelect");
+const overlay = document.getElementById("overlay");
+
+
+function saveStorage(){
+  localStorage.setItem(
+    STORAGE_KEY,
+    JSON.stringify(items)
+  );
+}
+
+
+function escapeHTML(value){
+
+  return String(value || "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;");
+
+}
+
+
+function formatMoney(item){
+
+  try{
+
+    return new Intl.NumberFormat(
+      undefined,
+      {
+        style:"currency",
+        currency:item.currency || "EUR"
+      }
+    ).format(item.price);
+
+  }catch{
+
+    return item.price + " " + item.currency;
+
+  }
+
+}
+
+
+function getCategories(){
+
+  const existing = [
+    ...new Set(
+      items.map(i => i.category)
+    )
+  ];
+
+  return [
+    "Everything",
+    "Favorites",
+    ...existing
+  ];
+
+}
+
+
+function renderCategories(){
+
+  categories.innerHTML = "";
+
+  getCategories().forEach(name => {
+
+    const button =
+      document.createElement("button");
+
+    button.className =
+      "pill" +
+      (
+        activeCategory === name
+          ? " active"
+          : ""
+      );
+
+    let total = 0;
+
+    if(name === "Everything"){
+      total = items.length;
+    }
+
+    else if(name === "Favorites"){
+      total =
+        items.filter(i => i.favorite).length;
+    }
+
+    else{
+      total =
+        items.filter(
+          i => i.category === name
+        ).length;
+    }
+
+    button.textContent =
+      name + " " + total;
+
+    button.onclick = () => {
+
+      activeCategory = name;
+
+      render();
+
+    };
+
+    categories.appendChild(button);
+
+  });
+
+}
+
+
+function filteredItems(){
+
+  let result = [...items];
+
+  if(activeCategory === "Favorites"){
+
+    result =
+      result.filter(
+        i => i.favorite
+      );
+
+  }
+
+  else if(activeCategory !== "Everything"){
+
+    result =
+      result.filter(
+        i => i.category === activeCategory
+      );
+
+  }
+
+
+  const query =
+    searchInput.value
+      .trim()
+      .toLowerCase();
+
+  if(query){
+
+    result =
+      result.filter(item =>
+
+        (
+          item.name +
+          " " +
+          item.brand +
+          " " +
+          item.category
+        )
+        .toLowerCase()
+        .includes(query)
+
+      );
+
+  }
+
+
+  if(sortSelect.value === "priority"){
+
+    result.sort(
+      (a,b) =>
+        Number(b.priority) -
+        Number(a.priority)
+    );
+
+  }
+
+  if(sortSelect.value === "low"){
+
+    result.sort(
+      (a,b) => a.price - b.price
+    );
+
+  }
+
+  if(sortSelect.value === "high"){
+
+    result.sort(
+      (a,b) => b.price - a.price
+    );
+
+  }
+
+  if(sortSelect.value === "az"){
+
+    result.sort(
+      (a,b) =>
+        a.name.localeCompare(b.name)
+    );
+
+  }
+
+  if(sortSelect.value === "recent"){
+
+    result.sort(
+      (a,b) =>
+        b.createdAt - a.createdAt
+    );
+
+  }
+
+
+  result.sort((a,b) => {
+
+    if(a.priority && !b.priority){
+      return -1;
+    }
+
+    if(!a.priority && b.priority){
+      return 1;
+    }
+
+    return 0;
+
+  });
+
+
+  return result;
+
+}
+
+
+function renderGrid(){
+
+  const result = filteredItems();
+
+  document.getElementById(
+    "sectionTitle"
+  ).textContent = activeCategory;
+
+  document.getElementById(
+    "count"
+  ).textContent =
+    result.length +
+    (
+      result.length === 1
+        ? " item"
+        : " items"
+    );
+
+
+  if(!result.length){
+
+    grid.innerHTML = `
+      <div class="empty">
+
+        <h2>
+          Nothing here yet
+        </h2>
+
+        <p>
+          Add your first item using the Add Item button.
+        </p>
+
+      </div>
+    `;
+
+    return;
+
+  }
+
+
+  grid.innerHTML =
+    result.map(item => `
+
+      <article class="card">
+
+        <button
+          class="priority ${item.priority ? "on" : ""}"
+          onclick="togglePriority('${item.id}')"
+          title="Buy next"
+        >
+          ⚡
+        </button>
+
+        <button
+          class="heart ${item.favorite ? "on" : ""}"
+          onclick="toggleFavorite('${item.id}')"
+          title="Favorite"
+        >
+          ${item.favorite ? "♥" : "♡"}
+        </button>
+
+
+        <div class="image">
+
+          ${
+            item.image
+
+            ? `
+              <img
+                src="${escapeHTML(item.image)}"
+                alt="${escapeHTML(item.name)}"
+                onerror="this.src='https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1000&q=80'"
+              >
+            `
+
+            : `
+              <img
+                src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1000&q=80"
+                alt=""
+              >
+            `
+          }
+
+        </div>
+
+
+        <div class="card-body">
+
+          <div class="brand">
+            ${escapeHTML(item.brand || "Unknown")}
+          </div>
+
+          <div class="name">
+            ${escapeHTML(item.name)}
+          </div>
+
+
+          <div class="row">
+
+            <div class="price">
+              ${formatMoney(item)}
+            </div>
+
+            <div class="tag">
+              ${escapeHTML(item.category)}
+            </div>
+
+          </div>
+
+
+          ${
+            item.priority
+
+            ? `
+              <div class="buy-next">
+                ⚡ Buy next
+              </div>
+            `
+
+            : ""
+          }
+
+
+          <div class="actions">
+
+            <a
+              class="open"
+              href="${escapeHTML(item.url || "#")}"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              View ↗
+            </a>
+
+            <button
+              class="small-btn"
+              onclick="editItem('${item.id}')"
+              title="Edit"
+            >
+              ✎
+            </button>
+
+            <button
+              class="small-btn"
+              onclick="deleteItem('${item.id}')"
+              title="Delete"
+            >
+              🗑
+            </button>
+
+          </div>
+
+        </div>
+
+      </article>
+
+    `).join("");
+
+}
+
+
+function render(){
+
+  renderCategories();
+  renderGrid();
+
+}
+
+
+window.toggleFavorite = function(id){
+
+  const item =
+    items.find(i => i.id === id);
+
+  if(!item) return;
+
+  item.favorite = !item.favorite;
+
+  saveStorage();
+  render();
+
+};
+
+
+window.togglePriority = function(id){
+
+  const item =
+    items.find(i => i.id === id);
+
+  if(!item) return;
+
+  item.priority = !item.priority;
+
+  saveStorage();
+  render();
+
+};
+
+
+window.deleteItem = function(id){
+
+  const item =
+    items.find(i => i.id === id);
+
+  if(!item) return;
+
+  const yes =
+    confirm(
+      `Remove "${item.name}" from your wishlist?`
+    );
+
+  if(!yes) return;
+
+  items =
+    items.filter(
+      i => i.id !== id
+    );
+
+  saveStorage();
+  render();
+
+};
+
+
+function resetForm(){
+
+  editingId = null;
+
+  document.getElementById(
+    "modalTitle"
+  ).textContent = "Add item";
+
+  document.getElementById(
+    "nameInput"
+  ).value = "";
+
+  document.getElementById(
+    "brandInput"
+  ).value = "";
+
+  document.getElementById(
+    "priceInput"
+  ).value = "";
+
+  document.getElementById(
+    "currencyInput"
+  ).value = "EUR";
+
+  document.getElementById(
+    "categoryInput"
+  ).value = "Other";
+
+  document.getElementById(
+    "urlInput"
+  ).value = "";
+
+  document.getElementById(
+    "imageInput"
+  ).value = "";
+
+}
+
+
+function openModal(){
+
+  overlay.classList.add("show");
+
+}
+
+
+function closeModal(){
+
+  overlay.classList.remove("show");
+
+}
+
+
+document.getElementById(
+  "addBtn"
+).onclick = () => {
+
+  resetForm();
+  openModal();
+
+};
+
+
+document.getElementById(
+  "cancelBtn"
+).onclick = closeModal;
+
+
+overlay.onclick = event => {
+
+  if(event.target === overlay){
+
+    closeModal();
+
+  }
+
+};
+
+
+window.editItem = function(id){
+
+  const item =
+    items.find(i => i.id === id);
+
+  if(!item) return;
+
+  editingId = id;
+
+  document.getElementById(
+    "modalTitle"
+  ).textContent = "Edit item";
+
+  document.getElementById(
+    "nameInput"
+  ).value = item.name || "";
+
+  document.getElementById(
+    "brandInput"
+  ).value = item.brand || "";
+
+  document.getElementById(
+    "priceInput"
+  ).value = item.price || "";
+
+  document.getElementById(
+    "currencyInput"
+  ).value = item.currency || "EUR";
+
+  document.getElementById(
+    "categoryInput"
+  ).value = item.category || "Other";
+
+  document.getElementById(
+    "urlInput"
+  ).value = item.url || "";
+
+  document.getElementById(
+    "imageInput"
+  ).value = item.image || "";
+
+  openModal();
+
+};
+
+
+document.getElementById(
+  "saveBtn"
+).onclick = () => {
+
+  const name =
+    document.getElementById(
+      "nameInput"
+    ).value.trim();
+
+  const price =
+    Number(
+      document.getElementById(
+        "priceInput"
+      ).value
+    );
+
+
+  if(!name){
+
+    alert(
+      "Please enter a product name."
+    );
+
+    return;
+
+  }
+
+
+  if(
+    Number.isNaN(price)
+    || price < 0
+  ){
+
+    alert(
+      "Please enter a valid price."
+    );
+
+    return;
+
+  }
+
+
+  const data = {
+
+    name,
+
+    brand:
+      document.getElementById(
+        "brandInput"
+      ).value.trim(),
+
+    price,
+
+    currency:
+      document.getElementById(
+        "currencyInput"
+      ).value,
+
+    category:
+      document.getElementById(
+        "categoryInput"
+      ).value,
+
+    url:
+      document.getElementById(
+        "urlInput"
+      ).value.trim(),
+
+    image:
+      document.getElementById(
+        "imageInput"
+      ).value.trim()
+
+  };
+
+
+  if(editingId){
+
+    const item =
+      items.find(
+        i => i.id === editingId
+      );
+
+    Object.assign(
+      item,
+      data
+    );
+
+  }
+
+  else{
+
+    items.unshift({
+
+      id:
+        crypto.randomUUID
+          ? crypto.randomUUID()
+          : String(Date.now()),
+
+      ...data,
+
+      favorite:false,
+
+      priority:false,
+
+      createdAt:Date.now()
+
+    });
+
+  }
+
+
+  saveStorage();
+
+  closeModal();
+
+  resetForm();
+
+  render();
+
+};
+
+
+searchInput.addEventListener(
+  "input",
+  renderGrid
+);
+
+
+sortSelect.addEventListener(
+  "change",
+  renderGrid
+);
+
+
+render();
+
+</script>
+
+</body>
+</html>
