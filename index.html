@@ -1378,19 +1378,214 @@ function resetAddForm(){
   document.getElementById("newCurrency").value="EUR";
   document.getElementById("newCategory").value="Other";
 
-  document.getElementById("importNotice").textContent=
-    "Automatic product reading needs the free importer backend we will connect after this update.";
-}
+document.getElementById("importBtn").onclick = async () => {
 
-document.getElementById("importBtn").onclick=()=>{
-  const url=document.getElementById("importUrl").value.trim();
+  const url =
+    document
+      .getElementById("importUrl")
+      .value
+      .trim();
 
-  if(!url){
-    document.getElementById("importNotice").textContent=
+
+  const notice =
+    document.getElementById(
+      "importNotice"
+    );
+
+
+  const button =
+    document.getElementById(
+      "importBtn"
+    );
+
+
+  if (!url) {
+
+    notice.textContent =
       "Paste a product URL first.";
+
     return;
+
   }
 
+
+  notice.textContent =
+    "Reading product…";
+
+  button.disabled = true;
+
+  button.textContent =
+    "Importing…";
+
+
+  try {
+
+    const response =
+      await fetch(
+        IMPORTER_URL,
+        {
+          method: "POST",
+
+          headers: {
+            "Content-Type":
+              "application/json"
+          },
+
+          body:
+            JSON.stringify({
+              url
+            })
+        }
+      );
+
+
+    const data =
+      await response.json();
+
+
+    if (
+      !response.ok ||
+      !data.ok
+    ) {
+
+      throw new Error(
+        data.error ||
+        "Import failed"
+      );
+
+    }
+
+
+    document.getElementById(
+      "newName"
+    ).value =
+      data.name || "";
+
+
+    document.getElementById(
+      "newBrand"
+    ).value =
+      data.brand || "";
+
+
+    document.getElementById(
+      "newPrice"
+    ).value =
+      data.price ?? "";
+
+
+    if (
+      ["EUR","USD","GBP","CHF"]
+        .includes(data.currency)
+    ) {
+
+      document.getElementById(
+        "newCurrency"
+      ).value =
+        data.currency;
+
+    }
+
+
+    if (data.category) {
+
+      document.getElementById(
+        "newCategory"
+      ).value =
+        data.category;
+
+    }
+
+
+    document.getElementById(
+      "newColor"
+    ).value =
+      data.color || "";
+
+
+    document.getElementById(
+      "newSizes"
+    ).value =
+      Array.isArray(data.sizes)
+        ? data.sizes.join(", ")
+        : "";
+
+
+    document.getElementById(
+      "newUrl"
+    ).value =
+      data.url || url;
+
+
+    document.getElementById(
+      "newImages"
+    ).value =
+      Array.isArray(data.images)
+        ? data.images.join("\n")
+        : "";
+
+
+    const found = [];
+
+
+    if (data.name)
+      found.push("name");
+
+    if (data.price !== null)
+      found.push("price");
+
+    if (
+      data.images &&
+      data.images.length
+    )
+      found.push(
+        data.images.length +
+        " images"
+      );
+
+    if (
+      data.sizes &&
+      data.sizes.length
+    )
+      found.push("sizes");
+
+
+    notice.textContent =
+      "✓ Imported " +
+      (
+        found.length
+          ? found.join(", ")
+          : "product details"
+      ) +
+      ". Check everything before saving.";
+
+
+  }
+
+  catch (error) {
+
+    document.getElementById(
+      "newUrl"
+    ).value = url;
+
+
+    notice.textContent =
+      "I couldn't automatically read this store. " +
+      "You can still enter the details manually. " +
+      error.message;
+
+  }
+
+  finally {
+
+    button.disabled = false;
+
+    button.textContent =
+      "Import";
+
+  }
+
+};
   document.getElementById("newUrl").value=url;
 
   document.getElementById("importNotice").textContent=
