@@ -2,7 +2,8 @@
 <html lang="it">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f5f7fb">
 <title>Lista desideri</title>
 
 <style>
@@ -10,16 +11,19 @@
   --text:#1d1d1f;
   --muted:#6e6e73;
   --blue:#007aff;
-  --blue2:#4aa8ff;
   --red:#ff3b30;
   --orange:#ff9500;
+  --line:rgba(255,255,255,.84);
 
   --glass:
     linear-gradient(
       145deg,
-      rgba(255,255,255,.72),
+      rgba(255,255,255,.76),
       rgba(255,255,255,.34)
     );
+
+  --shadow:
+    0 18px 52px rgba(30,70,115,.11);
 }
 
 *{
@@ -34,7 +38,6 @@ html{
 body{
   margin:0;
   min-height:100vh;
-
   color:var(--text);
 
   font-family:
@@ -49,26 +52,28 @@ body{
   background:
     radial-gradient(
       circle at 10% 4%,
-      rgba(65,164,255,.34),
-      transparent 29%
-    ),
-    radial-gradient(
-      circle at 90% 8%,
-      rgba(255,100,185,.23),
+      rgba(65,164,255,.30),
       transparent 28%
     ),
     radial-gradient(
+      circle at 90% 8%,
+      rgba(255,100,185,.20),
+      transparent 27%
+    ),
+    radial-gradient(
       circle at 67% 88%,
-      rgba(74,215,255,.20),
-      transparent 32%
+      rgba(74,215,255,.18),
+      transparent 31%
     ),
     linear-gradient(
       180deg,
       #fbfdff 0%,
       #f1f4f9 100%
     );
+}
 
-  background-attachment:fixed;
+body.modal-open{
+  overflow:hidden;
 }
 
 button,
@@ -82,40 +87,39 @@ button{
   cursor:pointer;
 }
 
-/* ========================================
-   TOPBAR
-======================================== */
+button:disabled{
+  opacity:.55;
+  cursor:wait;
+}
+
+/* TOP BAR */
 
 .topbar{
   position:sticky;
   top:0;
   z-index:60;
 
-  background:
-    rgba(255,255,255,.38);
+  background:rgba(255,255,255,.44);
 
   border-bottom:
     1px solid rgba(255,255,255,.72);
 
   backdrop-filter:
-    blur(34px)
-    saturate(200%);
+    blur(22px)
+    saturate(170%);
 
   -webkit-backdrop-filter:
-    blur(34px)
-    saturate(200%);
+    blur(22px)
+    saturate(170%);
 
   box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.88),
-    0 10px 38px rgba(30,70,120,.08);
+    0 8px 26px rgba(30,70,120,.06);
 }
 
 .topbar-inner{
   max-width:1450px;
   margin:auto;
-
-  padding:
-    12px 22px;
+  padding:12px 22px;
 
   display:flex;
   align-items:center;
@@ -125,15 +129,11 @@ button{
 .logo{
   font-size:21px;
   font-weight:760;
-
   letter-spacing:-.045em;
-
   white-space:nowrap;
 }
 
-/* ========================================
-   SEARCH
-======================================== */
+/* SEARCH */
 
 .search{
   position:relative;
@@ -142,176 +142,143 @@ button{
 
 .search span{
   position:absolute;
-
   left:14px;
   top:50%;
-
-  transform:
-    translateY(-50%);
-
+  transform:translateY(-50%);
   color:#8e8e93;
-
   z-index:2;
 }
 
-.search input{
+.search input,
+.glass-control{
   width:100%;
 
-  padding:
-    11px 15px 11px 40px;
-
-  border-radius:16px;
-
   border:
-    1px solid rgba(255,255,255,.82);
+    1px solid var(--line);
 
   outline:none;
 
   background:
-    linear-gradient(
-      135deg,
-      rgba(255,255,255,.68),
-      rgba(255,255,255,.32)
-    );
+    rgba(255,255,255,.60);
 
   box-shadow:
     inset 0 1px 0 rgba(255,255,255,.96),
-    inset 0 -1px 0 rgba(100,150,220,.05),
-    0 8px 24px rgba(40,70,110,.06);
+    0 7px 22px rgba(40,70,110,.05);
 
   backdrop-filter:
-    blur(24px)
-    saturate(190%);
+    blur(16px)
+    saturate(160%);
 
   -webkit-backdrop-filter:
-    blur(24px)
-    saturate(190%);
+    blur(16px)
+    saturate(160%);
 }
 
-/* ========================================
-   BUTTONS
-======================================== */
+.search input{
+  padding:11px 15px 11px 40px;
+  border-radius:16px;
+}
+
+/* BUTTONS */
 
 .btn,
 .pill,
 .sort{
-  position:relative;
-
   border:
-    1px solid rgba(255,255,255,.82);
+    1px solid var(--line);
 
   background:
-    linear-gradient(
-      145deg,
-      rgba(255,255,255,.76),
-      rgba(255,255,255,.36)
-    );
+    var(--glass);
 
   box-shadow:
     inset 0 1px 0 rgba(255,255,255,.98),
-    inset 0 -1px 0 rgba(80,130,190,.08),
-    0 9px 24px rgba(45,70,105,.08);
+    0 8px 22px rgba(45,70,105,.07);
 
   backdrop-filter:
-    blur(24px)
-    saturate(195%);
+    blur(16px)
+    saturate(165%);
 
   -webkit-backdrop-filter:
-    blur(24px)
-    saturate(195%);
+    blur(16px)
+    saturate(165%);
 }
 
 .btn{
   border-radius:15px;
-
-  padding:
-    10px 15px;
+  padding:10px 15px;
 
   transition:
-    transform .18s ease,
-    box-shadow .18s ease;
+    transform .16s ease,
+    box-shadow .16s ease,
+    opacity .16s ease;
 }
 
 .btn:hover{
-  transform:
-    translateY(-1px)
-    scale(1.015);
+  transform:translateY(-1px);
 
   box-shadow:
-    inset 0 1px 0 rgba(255,255,255,1),
-    0 13px 30px rgba(40,70,110,.13);
+    inset 0 1px 0 #fff,
+    0 12px 28px rgba(40,70,110,.12);
 }
 
 .btn.primary{
-  color:white;
+  color:#fff;
   font-weight:700;
 
   background:
     linear-gradient(
       180deg,
-      #4aaaff 0%,
+      #4aaaff,
       #0782ff 48%,
-      #006fe8 100%
+      #006fe8
     );
 
-  border:
-    1px solid rgba(255,255,255,.35);
+  border-color:
+    rgba(255,255,255,.34);
 
   box-shadow:
-    inset 0 2px 1px rgba(255,255,255,.48),
-    inset 0 -2px 1px rgba(0,50,140,.20),
-    0 11px 28px rgba(0,113,227,.28);
+    inset 0 1px 1px rgba(255,255,255,.45),
+    0 10px 24px rgba(0,113,227,.25);
 }
 
-/* ========================================
-   HERO
-======================================== */
+.btn.danger{
+  color:var(--red);
+}
+
+/* HERO */
 
 .hero{
   max-width:1450px;
   margin:auto;
-
-  padding:
-    56px 22px 34px;
+  padding:54px 22px 32px;
 }
 
 .hero h1{
   margin:0;
-
   max-width:920px;
 
   font-size:
-    clamp(46px,6.7vw,88px);
+    clamp(44px,6.7vw,86px);
 
-  line-height:.94;
-
-  letter-spacing:-.07em;
-
+  line-height:.95;
+  letter-spacing:-.065em;
   font-weight:760;
 }
 
 .hero p{
   max-width:730px;
-
-  margin:
-    22px 0 0;
-
+  margin:20px 0 0;
   color:var(--muted);
-
   font-size:18px;
   line-height:1.5;
 }
 
-/* ========================================
-   TOOLBAR
-======================================== */
+/* TOOLBAR */
 
 .toolbar{
   max-width:1450px;
   margin:auto;
-
-  padding:
-    0 22px 23px;
+  padding:0 22px 23px;
 
   display:flex;
   align-items:center;
@@ -320,13 +287,9 @@ button{
 
 .categories{
   flex:1;
-
   display:flex;
-
   gap:8px;
-
   overflow-x:auto;
-
   scrollbar-width:none;
 }
 
@@ -336,34 +299,28 @@ button{
 
 .pill{
   flex:0 0 auto;
-
   border-radius:999px;
-
-  padding:
-    9px 14px;
-
+  padding:9px 14px;
   color:var(--muted);
-
   white-space:nowrap;
 
   transition:
-    transform .18s ease,
-    background .18s ease;
+    transform .16s ease,
+    background .16s ease;
 }
 
 .pill:hover{
-  transform:
-    translateY(-1px);
+  transform:translateY(-1px);
 }
 
 .pill.active{
-  color:white;
+  color:#fff;
 
   background:
     linear-gradient(
       145deg,
-      rgba(20,20,23,.95),
-      rgba(50,50,56,.88)
+      rgba(20,20,23,.96),
+      rgba(50,50,56,.90)
     );
 
   border-color:
@@ -380,14 +337,9 @@ button{
   -webkit-appearance:none;
 
   min-width:220px;
-
   border-radius:999px;
-
   outline:none;
-
-  padding:
-    11px 45px 11px 18px;
-
+  padding:11px 42px 11px 18px;
   color:var(--text);
 }
 
@@ -395,7 +347,6 @@ button{
   content:"";
 
   position:absolute;
-
   right:18px;
   top:50%;
 
@@ -415,35 +366,25 @@ button{
   pointer-events:none;
 }
 
-/* ========================================
-   MAIN
-======================================== */
+/* MAIN */
 
 .main{
   max-width:1450px;
   margin:auto;
-
-  padding:
-    0 22px 90px;
+  padding:0 22px 90px;
 }
 
 .section-head{
   display:flex;
-
   align-items:end;
   justify-content:space-between;
-
-  margin:
-    7px 0 17px;
-
+  margin:7px 0 17px;
   gap:15px;
 }
 
 .section-head h2{
   margin:0;
-
   font-size:29px;
-
   letter-spacing:-.045em;
 }
 
@@ -452,9 +393,7 @@ button{
   font-size:14px;
 }
 
-/* ========================================
-   PRODUCT GRID
-======================================== */
+/* GRID */
 
 .grid{
   display:grid;
@@ -469,164 +408,130 @@ button{
 }
 
 .card{
-  --scrollY:0px;
-
   position:relative;
 
   width:100%;
   max-width:275px;
 
   justify-self:center;
-
   overflow:hidden;
-
   cursor:pointer;
 
   border-radius:26px;
 
   background:
-    linear-gradient(
-      145deg,
-      rgba(255,255,255,.74),
-      rgba(255,255,255,.35)
-    );
+    var(--glass);
 
   border:
     1px solid rgba(255,255,255,.92);
 
   box-shadow:
-    inset 0 2px 1px rgba(255,255,255,.98),
-    inset 0 -2px 2px rgba(80,130,200,.07),
-    0 16px 42px rgba(30,70,115,.10);
+    inset 0 1px 0 rgba(255,255,255,.98),
+    var(--shadow);
 
   backdrop-filter:
-    blur(32px)
-    saturate(200%);
+    blur(18px)
+    saturate(170%);
 
   -webkit-backdrop-filter:
-    blur(32px)
-    saturate(200%);
+    blur(18px)
+    saturate(170%);
 
   transform:
-    translateY(var(--scrollY));
+    translateZ(0);
 
   transition:
-    transform .22s ease,
-    box-shadow .22s ease;
+    transform .20s cubic-bezier(.2,.8,.2,1),
+    box-shadow .20s ease;
+
+  will-change:transform;
 }
 
 .card::before{
   content:"";
 
   position:absolute;
-
   inset:0;
 
   pointer-events:none;
-
   border-radius:inherit;
+  z-index:2;
 
   background:
     linear-gradient(
       135deg,
-      rgba(255,255,255,.68),
-      transparent 27%,
-      transparent 70%,
-      rgba(255,255,255,.16)
+      rgba(255,255,255,.65),
+      transparent 28%,
+      transparent 72%,
+      rgba(255,255,255,.14)
     );
-
-  opacity:.76;
-
-  z-index:2;
 }
 
 .card:hover{
   transform:
-    translateY(calc(var(--scrollY) - 6px))
-    scale(1.015);
+    translateY(-5px)
+    scale(1.012);
 
   box-shadow:
-    inset 0 2px 1px white,
-    0 26px 68px rgba(35,70,120,.16);
+    inset 0 1px 0 #fff,
+    0 24px 58px rgba(35,70,120,.15);
 }
 
 .card-image{
   position:relative;
-
   margin:9px;
-
-  aspect-ratio:
-    1 / 1;
-
+  aspect-ratio:1 / 1;
   overflow:hidden;
-
   border-radius:20px;
 
   background:
     linear-gradient(
       145deg,
-      rgba(255,255,255,.76),
-      rgba(232,237,245,.62)
+      rgba(255,255,255,.72),
+      rgba(232,237,245,.60)
     );
 }
 
 .card-image img{
   width:100%;
   height:100%;
-
   display:block;
-
   object-fit:contain;
-
   padding:9px;
 
   transition:
-    transform .4s
-    cubic-bezier(.2,.8,.2,1);
+    transform .30s cubic-bezier(.2,.8,.2,1);
 }
 
 .card:hover .card-image img{
-  transform:
-    scale(1.035);
+  transform:scale(1.03);
 }
 
 .card-body{
   position:relative;
   z-index:3;
-
-  padding:
-    7px 14px 15px;
+  padding:7px 14px 15px;
 }
 
 .brand{
   color:#86868b;
-
   font-size:11px;
-
   font-weight:760;
-
   letter-spacing:.08em;
-
   text-transform:uppercase;
 }
 
 .name{
-  margin:
-    5px 0 10px;
-
+  margin:5px 0 9px;
   font-size:16px;
-
   line-height:1.25;
-
   font-weight:680;
 }
 
 .row{
   display:flex;
-
   justify-content:space-between;
   align-items:center;
-
   gap:9px;
 }
 
@@ -641,9 +546,7 @@ button{
 }
 
 .tag{
-  padding:
-    5px 8px;
-
+  padding:5px 8px;
   border-radius:999px;
 
   color:var(--muted);
@@ -656,9 +559,7 @@ button{
 
 .circle{
   position:absolute;
-
   top:18px;
-
   z-index:5;
 
   width:37px;
@@ -673,20 +574,12 @@ button{
     linear-gradient(
       145deg,
       rgba(255,255,255,.86),
-      rgba(255,255,255,.42)
+      rgba(255,255,255,.44)
     );
 
   box-shadow:
-    inset 0 1px 0 white,
-    0 7px 19px rgba(20,50,90,.12);
-
-  backdrop-filter:
-    blur(20px)
-    saturate(190%);
-
-  -webkit-backdrop-filter:
-    blur(20px)
-    saturate(190%);
+    inset 0 1px 0 #fff,
+    0 7px 18px rgba(20,50,90,.11);
 
   font-size:17px;
 }
@@ -700,7 +593,7 @@ button{
 }
 
 .priority.on{
-  color:white;
+  color:#fff;
 
   background:
     linear-gradient(
@@ -716,11 +609,8 @@ button{
 
 .buy-next{
   display:inline-block;
-
   margin-top:9px;
-
-  padding:
-    5px 8px;
+  padding:5px 8px;
 
   border-radius:999px;
 
@@ -730,66 +620,91 @@ button{
   color:#a85b00;
 
   font-size:10px;
-
   font-weight:760;
 }
 
 .empty{
   grid-column:1/-1;
-
   text-align:center;
-
-  padding:
-    70px 20px;
-
+  padding:70px 20px;
   color:var(--muted);
 }
 
-/* ========================================
-   OVERLAYS
-======================================== */
+/* JIGGLE */
+
+.jiggle{
+  animation:
+    softJiggle .86s
+    cubic-bezier(.22,.7,.22,1)
+    both;
+}
+
+@keyframes softJiggle{
+
+  0%,
+  100%{
+    transform:
+      translate3d(0,0,0)
+      rotate(0);
+  }
+
+  18%{
+    transform:
+      translate3d(0,6px,0)
+      rotate(.45deg);
+  }
+
+  42%{
+    transform:
+      translate3d(0,-3px,0)
+      rotate(-.32deg);
+  }
+
+  67%{
+    transform:
+      translate3d(0,2px,0)
+      rotate(.18deg);
+  }
+
+  84%{
+    transform:
+      translate3d(0,-1px,0)
+      rotate(-.08deg);
+  }
+}
+
+/* OVERLAY */
 
 .overlay{
   position:fixed;
-
   inset:0;
-
   z-index:100;
 
   display:none;
-
   place-items:center;
-
-  padding:18px;
+  padding:16px;
 
   background:
-    rgba(80,100,130,.16);
+    rgba(80,100,130,.14);
 
   backdrop-filter:
-    blur(26px)
-    saturate(155%);
+    blur(18px)
+    saturate(140%);
 
   -webkit-backdrop-filter:
-    blur(26px)
-    saturate(155%);
+    blur(18px)
+    saturate(140%);
 }
 
 .overlay.show{
   display:grid;
 }
 
-/* ========================================
-   LIQUID GLASS MODALS
-======================================== */
-
-.detail,
-.add-modal{
+.modal-glass{
   position:relative;
 
-  overflow:hidden;
-
   border:
-    1px solid rgba(255,255,255,.94);
+    1px solid rgba(255,255,255,.92);
 
   background:
     linear-gradient(
@@ -799,155 +714,107 @@ button{
     );
 
   box-shadow:
-    inset 0 2px 1px white,
-    inset 0 -2px 3px rgba(70,120,190,.08),
-    0 38px 110px rgba(20,45,85,.25);
+    inset 0 1px 0 #fff,
+    0 34px 90px rgba(20,45,85,.23);
 
   backdrop-filter:
-    blur(48px)
-    saturate(205%);
+    blur(28px)
+    saturate(180%);
 
   -webkit-backdrop-filter:
-    blur(48px)
-    saturate(205%);
+    blur(28px)
+    saturate(180%);
 }
 
-.detail::before,
-.add-modal::before{
+.modal-glass::before{
   content:"";
 
   position:absolute;
+  inset:0;
 
   pointer-events:none;
-
-  inset:0;
+  border-radius:inherit;
+  z-index:0;
 
   background:
     radial-gradient(
-      circle at 15% 5%,
-      rgba(255,255,255,.80),
-      transparent 26%
+      circle at 15% 4%,
+      rgba(255,255,255,.78),
+      transparent 25%
     ),
     linear-gradient(
       135deg,
-      rgba(255,255,255,.42),
-      transparent 35%,
-      transparent 72%,
-      rgba(130,200,255,.12)
+      rgba(255,255,255,.34),
+      transparent 37%,
+      transparent 74%,
+      rgba(130,200,255,.10)
     );
-
-  z-index:0;
 }
 
-.detail > *,
-.add-modal > *{
+.modal-glass > *{
   position:relative;
-  z-index:2;
+  z-index:1;
 }
 
-/* ========================================
-   ADD MODAL
-======================================== */
+/* ADD MODAL */
 
 .add-modal{
-  width:
-    min(570px,95vw);
-
-  max-height:84vh;
-
-  overflow-y:auto;
-
-  padding:
-    22px;
-
-  border-radius:29px;
+  width:min(610px,95vw);
+  max-height:min(86vh,780px);
+  overflow:auto;
+  padding:22px;
+  border-radius:28px;
 
   animation:
-    glassPop .38s
+    glassPop .28s
     cubic-bezier(.2,.8,.2,1)
     both;
 }
 
 @keyframes glassPop{
+
   from{
     opacity:0;
-
     transform:
-      translateY(20px)
-      scale(.94);
-
-    filter:
-      blur(8px);
+      translateY(12px)
+      scale(.965);
   }
 
   to{
     opacity:1;
-
-    transform:
-      translateY(0)
-      scale(1);
-
-    filter:
-      blur(0);
+    transform:none;
   }
 }
 
 .add-modal h2{
   margin:0;
-
   font-size:28px;
-
   letter-spacing:-.045em;
 }
 
-.add-modal p{
-  margin:
-    8px 0 13px;
-
+.add-modal > p{
+  margin:8px 0 13px;
   color:var(--muted);
-
   font-size:14px;
-
   line-height:1.45;
 }
 
 .importbox{
   display:flex;
-
   gap:8px;
-
-  margin:
-    14px 0 10px;
+  margin:14px 0 10px;
 }
 
 .importbox input{
   flex:1;
   min-width:0;
-
-  padding:
-    11px 12px;
-
+  padding:11px 12px;
   border-radius:14px;
-
-  border:
-    1px solid rgba(255,255,255,.92);
-
-  outline:none;
-
-  background:
-    rgba(255,255,255,.68);
-
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.98);
 }
 
 .notice{
-  margin:
-    9px 0 14px;
-
-  padding:
-    9px 11px;
-
+  margin:9px 0 14px;
+  padding:9px 11px;
   border-radius:12px;
 
   background:
@@ -956,7 +823,6 @@ button{
   color:#245a8b;
 
   font-size:12px;
-
   line-height:1.4;
 }
 
@@ -966,14 +832,9 @@ button{
 
 .field label{
   display:block;
-
-  margin:
-    0 0 5px 3px;
-
+  margin:0 0 5px 3px;
   color:var(--muted);
-
   font-size:11px;
-
   font-weight:680;
 }
 
@@ -986,12 +847,8 @@ button{
     1px solid rgba(255,255,255,.92);
 
   outline:none;
-
   border-radius:13px;
-
-  padding:
-    9px 11px;
-
+  padding:9px 11px;
   color:var(--text);
 
   background:
@@ -1008,128 +865,97 @@ button{
 
 .field textarea{
   resize:vertical;
-
   min-height:58px;
 }
 
 .two{
   display:grid;
-
-  grid-template-columns:
-    1fr 1fr;
-
+  grid-template-columns:1fr 1fr;
   gap:9px;
 }
 
-/* sticky save area */
-
 .quick-save{
   position:sticky;
-
   top:-1px;
-
   z-index:15;
 
-  margin:
-    4px -4px 13px;
-
-  padding:
-    8px 4px;
+  margin:4px -4px 13px;
+  padding:8px 4px;
 
   display:grid;
-
-  grid-template-columns:
-    .65fr 1.35fr;
-
+  grid-template-columns:.65fr 1.35fr;
   gap:8px;
 
   background:
     linear-gradient(
       180deg,
-      rgba(247,250,255,.92),
-      rgba(247,250,255,.70),
+      rgba(247,250,255,.94),
+      rgba(247,250,255,.74),
       transparent
     );
 
-  backdrop-filter:
-    blur(18px);
-
-  -webkit-backdrop-filter:
-    blur(18px);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
 }
 
 .optional-title{
-  margin:
-    13px 0 9px;
-
+  margin:13px 0 9px;
   color:#86868b;
-
   font-size:11px;
-
   text-transform:uppercase;
-
   font-weight:760;
-
   letter-spacing:.07em;
 }
 
-/* ========================================
-   DETAIL
-======================================== */
+/* DETAIL */
 
 .detail{
-  width:
-    min(850px,93vw);
-
-  max-height:84vh;
-
-  overflow:auto;
-
-  border-radius:29px;
+  width:min(900px,94vw);
+  max-height:min(88vh,760px);
+  overflow:hidden;
+  border-radius:28px;
 
   transform-style:
     preserve-3d;
 
-  transform-origin:center center;
+  transform-origin:center;
+
+  contain:
+    layout paint style;
 }
 
 .overlay.show .detail{
   animation:
-    spinDetail .72s
-    cubic-bezier(.18,.82,.22,1)
+    spinDetail .48s
+    cubic-bezier(.2,.76,.22,1)
     both;
 }
 
 @keyframes spinDetail{
+
   0%{
     opacity:0;
 
     transform:
-      perspective(1500px)
+      perspective(1200px)
       rotateY(-360deg)
-      scale(.72);
-
-    filter:
-      blur(12px);
+      scale(.90);
   }
 
-  55%{
+  72%{
     opacity:1;
 
     transform:
-      perspective(1500px)
-      rotateY(10deg)
-      scale(1.025);
-
-    filter:
-      blur(0);
+      perspective(1200px)
+      rotateY(8deg)
+      scale(1.01);
   }
 
   100%{
     opacity:1;
 
     transform:
-      perspective(1500px)
+      perspective(1200px)
       rotateY(0deg)
       scale(1);
   }
@@ -1139,23 +965,20 @@ button{
   display:grid;
 
   grid-template-columns:
-    1fr 1fr;
+    minmax(300px,.95fr)
+    minmax(330px,1.05fr);
 
-  min-height:460px;
+  align-items:start;
 }
 
 .gallery{
-  padding:15px;
+  padding:14px;
 }
 
 .main-photo{
-  aspect-ratio:
-    1 / 1;
-
-  max-height:405px;
-
+  aspect-ratio:1 / 1;
+  max-height:390px;
   overflow:hidden;
-
   border-radius:21px;
 
   border:
@@ -1165,55 +988,38 @@ button{
     rgba(255,255,255,.48);
 
   box-shadow:
-    inset 0 1px 0 white,
-    0 15px 40px rgba(35,60,100,.10);
+    inset 0 1px 0 #fff,
+    0 13px 34px rgba(35,60,100,.09);
 }
 
 .main-photo img{
   width:100%;
   height:100%;
-
   object-fit:contain;
-
   padding:8px;
-
-  transition:
-    transform .35s ease;
-}
-
-.main-photo:hover img{
-  transform:
-    scale(1.035);
+  display:block;
 }
 
 .thumbnails{
   display:flex;
-
   gap:7px;
-
   margin-top:8px;
-
   overflow-x:auto;
 }
 
+.thumbnails:empty{
+  display:none;
+}
+
 .thumb{
-  flex:
-    0 0 62px;
-
-  width:62px;
-  height:62px;
-
+  flex:0 0 56px;
+  width:56px;
+  height:56px;
   overflow:hidden;
-
   padding:0;
-
   border-radius:12px;
-
-  border:
-    2px solid transparent;
-
-  background:
-    rgba(255,255,255,.62);
+  border:2px solid transparent;
+  background:rgba(255,255,255,.62);
 }
 
 .thumb.active{
@@ -1223,28 +1029,29 @@ button{
 .thumb img{
   width:100%;
   height:100%;
-
   object-fit:cover;
 }
 
 .info-panel{
   position:relative;
 
-  padding:
-    22px;
+  padding:20px 20px 18px;
+
+  max-height:
+    min(88vh,760px);
+
+  overflow:auto;
 }
 
 .close{
   position:absolute;
-
-  right:18px;
-  top:17px;
+  right:16px;
+  top:15px;
 
   width:36px;
   height:36px;
 
   border:0;
-
   border-radius:50%;
 
   background:
@@ -1254,51 +1061,81 @@ button{
 }
 
 .detail-brand{
-  padding-right:43px;
-
+  padding-right:46px;
   color:#86868b;
-
   font-size:11px;
-
   font-weight:750;
-
   letter-spacing:.08em;
-
   text-transform:uppercase;
 }
 
 .detail-name{
-  margin:
-    7px 0 4px;
-
-  font-size:28px;
-
-  line-height:1.05;
-
-  letter-spacing:-.045em;
+  margin:6px 46px 4px 0;
+  font-size:27px;
+  line-height:1.06;
+  letter-spacing:-.04em;
 }
 
 .detail-price{
-  margin:
-    0 0 18px;
+  margin:0 0 12px;
+  font-size:20px;
+  font-weight:720;
+}
 
-  font-size:19px;
+.facts{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:7px;
+  margin:0 0 14px;
+}
 
-  font-weight:700;
+.fact{
+  padding:9px 11px;
+  border-radius:14px;
+  background:rgba(118,118,128,.095);
+  font-size:12px;
+  color:#48484a;
+}
+
+.fact strong{
+  display:block;
+  color:#86868b;
+  font-size:10px;
+  margin-bottom:3px;
+  text-transform:uppercase;
+  letter-spacing:.04em;
+}
+
+.fact span{
+  color:var(--text);
+  font-weight:650;
+}
+
+.notes-view{
+  margin:0 0 13px;
+  padding:10px 11px;
+  border-radius:14px;
+
+  background:
+    rgba(255,255,255,.42);
+
+  font-size:13px;
+  line-height:1.45;
+  color:#49494d;
+}
+
+.notes-view:empty{
+  display:none;
 }
 
 .size-row{
   display:flex;
-
   flex-wrap:wrap;
-
   gap:6px;
 }
 
 .size{
-  padding:
-    7px 10px;
-
+  padding:7px 10px;
   border-radius:10px;
 
   border:
@@ -1309,35 +1146,27 @@ button{
 }
 
 .size.selected{
-  color:white;
+  color:#fff;
   background:#1d1d1f;
 }
 
 .detail-actions{
   display:flex;
-
   flex-wrap:wrap;
-
   gap:7px;
-
-  margin-top:15px;
+  margin-top:13px;
 }
 
 .store-link{
   flex:1;
-
   min-width:145px;
 
   border-radius:13px;
-
-  padding:
-    10px 13px;
+  padding:10px 13px;
 
   text-align:center;
-
   text-decoration:none;
-
-  color:white;
+  color:#fff;
 
   background:
     linear-gradient(
@@ -1347,13 +1176,29 @@ button{
     );
 }
 
-.danger{
-  color:var(--red);
+.store-link.disabled{
+  display:none;
 }
 
-/* ========================================
-   MOBILE
-======================================== */
+.edit-box{
+  margin-top:12px;
+
+  border-top:
+    1px solid rgba(120,120,128,.13);
+
+  padding-top:10px;
+}
+
+.edit-box summary{
+  cursor:pointer;
+  color:#4d4d52;
+  font-size:13px;
+  font-weight:700;
+  user-select:none;
+  margin-bottom:10px;
+}
+
+/* MOBILE */
 
 @media(max-width:760px){
 
@@ -1399,8 +1244,7 @@ button{
   }
 
   .card-body{
-    padding:
-      5px 10px 12px;
+    padding:5px 10px 12px;
   }
 
   .name{
@@ -1418,7 +1262,6 @@ button{
   .circle{
     width:34px;
     height:34px;
-
     top:15px;
   }
 
@@ -1430,8 +1273,31 @@ button{
     right:15px;
   }
 
+  .detail{
+    max-height:92vh;
+    overflow:auto;
+  }
+
   .detail-grid{
     grid-template-columns:1fr;
+  }
+
+  .gallery{
+    padding:12px 12px 4px;
+  }
+
+  .main-photo{
+    max-height:42vh;
+  }
+
+  .info-panel{
+    max-height:none;
+    overflow:visible;
+    padding:16px;
+  }
+
+  .facts{
+    grid-template-columns:1fr 1fr;
   }
 
   .two{
@@ -1439,7 +1305,19 @@ button{
   }
 
   .add-modal{
-    max-height:88vh;
+    max-height:90vh;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+
+  *,
+  *::before,
+  *::after{
+    animation-duration:.01ms !important;
+    animation-iteration-count:1 !important;
+    scroll-behavior:auto !important;
+    transition-duration:.01ms !important;
   }
 }
 </style>
@@ -1557,32 +1435,30 @@ button{
 </main>
 
 
-<!-- ========================================
-     ADD MODAL
-======================================== -->
-
 <div
   class="overlay"
   id="addOverlay"
 >
 
-  <div class="add-modal">
+  <div
+    class="add-modal modal-glass"
+  >
 
     <h2>
       Aggiungi prodotto
     </h2>
 
     <p>
-      Incolla il link del prodotto.
-      Proverò a recuperare automaticamente le informazioni.
+      Incolla il link del prodotto. Proverò a recuperare automaticamente nome,
+      marchio, prezzo, immagini, colore e taglie.
     </p>
-
 
     <div class="importbox">
 
       <input
+        class="glass-control"
         id="importUrl"
-        placeholder="https://www.amiparis.com/..."
+        placeholder="https://www.sito.com/prodotto..."
       >
 
       <button
@@ -1593,7 +1469,6 @@ button{
       </button>
 
     </div>
-
 
     <div
       class="notice"
@@ -1626,7 +1501,6 @@ button{
 
       </div>
 
-
       <div class="field">
 
         <label>
@@ -1637,7 +1511,7 @@ button{
           id="newPrice"
           type="number"
           step="0.01"
-          placeholder="Es. 250"
+          inputmode="decimal"
         >
 
       </div>
@@ -1653,52 +1527,9 @@ button{
           Categoria
         </label>
 
-        <select id="newCategory">
-
-          <option value="Watches">
-            Orologi
-          </option>
-
-          <option value="Jewelry">
-            Gioielli
-          </option>
-
-          <option value="Hoodies">
-            Felpe
-          </option>
-
-          <option value="T-Shirts">
-            T-shirt
-          </option>
-
-          <option value="Shirts">
-            Camicie
-          </option>
-
-          <option value="Jackets">
-            Giacche
-          </option>
-
-          <option value="Pants">
-            Pantaloni
-          </option>
-
-          <option value="Shoes">
-            Scarpe
-          </option>
-
-          <option value="Accessories">
-            Accessori
-          </option>
-
-          <option value="Other">
-            Altro
-          </option>
-
-        </select>
+        <select id="newCategory"></select>
 
       </div>
-
 
       <div class="field">
 
@@ -1731,7 +1562,6 @@ button{
 
       </div>
 
-
       <div class="field">
 
         <label>
@@ -1740,21 +1570,10 @@ button{
 
         <select id="newCurrency">
 
-          <option>
-            EUR
-          </option>
-
-          <option>
-            USD
-          </option>
-
-          <option>
-            GBP
-          </option>
-
-          <option>
-            CHF
-          </option>
+          <option>EUR</option>
+          <option>USD</option>
+          <option>GBP</option>
+          <option>CHF</option>
 
         </select>
 
@@ -1762,8 +1581,6 @@ button{
 
     </div>
 
-
-    <!-- pulsanti molto più in alto -->
 
     <div class="quick-save">
 
@@ -1840,16 +1657,15 @@ button{
 </div>
 
 
-<!-- ========================================
-     DETAIL MODAL
-======================================== -->
-
 <div
   class="overlay"
   id="detailOverlay"
 >
 
-  <div class="detail">
+  <div
+    class="detail modal-glass"
+    id="detailModal"
+  >
 
     <div class="detail-grid">
 
@@ -1864,7 +1680,6 @@ button{
 
         </div>
 
-
         <div
           class="thumbnails"
           id="thumbnails"
@@ -1873,11 +1688,15 @@ button{
       </div>
 
 
-      <div class="info-panel">
+      <div
+        class="info-panel"
+        id="infoPanel"
+      >
 
         <button
           class="close"
           id="closeDetail"
+          aria-label="Chiudi"
         >
           ×
         </button>
@@ -1901,149 +1720,22 @@ button{
         ></div>
 
 
-        <div class="two">
-
-          <div class="field">
-
-            <label>
-              Nome
-            </label>
-
-            <input id="editName">
-
-          </div>
+        <div
+          class="facts"
+          id="detailFacts"
+        ></div>
 
 
-          <div class="field">
-
-            <label>
-              Marchio
-            </label>
-
-            <input id="editBrand">
-
-          </div>
-
-        </div>
+        <div
+          class="notes-view"
+          id="detailNotesView"
+        ></div>
 
 
-        <div class="two">
-
-          <div class="field">
-
-            <label>
-              Prezzo
-            </label>
-
-            <input
-              id="editPrice"
-              type="number"
-              step="0.01"
-            >
-
-          </div>
-
-
-          <div class="field">
-
-            <label>
-              Valuta
-            </label>
-
-            <select id="editCurrency">
-
-              <option>
-                EUR
-              </option>
-
-              <option>
-                USD
-              </option>
-
-              <option>
-                GBP
-              </option>
-
-              <option>
-                CHF
-              </option>
-
-            </select>
-
-          </div>
-
-        </div>
-
-
-        <div class="two">
-
-          <div class="field">
-
-            <label>
-              Categoria
-            </label>
-
-            <select id="editCategory">
-
-              <option value="Watches">
-                Orologi
-              </option>
-
-              <option value="Jewelry">
-                Gioielli
-              </option>
-
-              <option value="Hoodies">
-                Felpe
-              </option>
-
-              <option value="T-Shirts">
-                T-shirt
-              </option>
-
-              <option value="Shirts">
-                Camicie
-              </option>
-
-              <option value="Jackets">
-                Giacche
-              </option>
-
-              <option value="Pants">
-                Pantaloni
-              </option>
-
-              <option value="Shoes">
-                Scarpe
-              </option>
-
-              <option value="Accessories">
-                Accessori
-              </option>
-
-              <option value="Other">
-                Altro
-              </option>
-
-            </select>
-
-          </div>
-
-
-          <div class="field">
-
-            <label>
-              Colore
-            </label>
-
-            <input id="editColor">
-
-          </div>
-
-        </div>
-
-
-        <div class="field">
+        <div
+          class="field"
+          id="sizesViewWrap"
+        >
 
           <label>
             Taglie disponibili
@@ -2053,50 +1745,6 @@ button{
             class="size-row"
             id="sizeButtons"
           ></div>
-
-        </div>
-
-
-        <div class="field">
-
-          <label>
-            La mia taglia
-          </label>
-
-          <input id="editSize">
-
-        </div>
-
-
-        <div class="field">
-
-          <label>
-            Note
-          </label>
-
-          <textarea id="editNotes"></textarea>
-
-        </div>
-
-
-        <div class="field">
-
-          <label>
-            Link prodotto
-          </label>
-
-          <input id="editUrl">
-
-        </div>
-
-
-        <div class="field">
-
-          <label>
-            Link immagini
-          </label>
-
-          <textarea id="editImages"></textarea>
 
         </div>
 
@@ -2117,30 +1765,196 @@ button{
             ⚡ Da comprare
           </button>
 
-          <button
-            class="btn primary"
-            id="saveDetail"
-          >
-            Salva
-          </button>
-
           <a
             class="store-link"
             id="storeLink"
             target="_blank"
-            rel="noopener"
+            rel="noopener noreferrer"
           >
             Vai al negozio ↗
           </a>
 
-          <button
-            class="btn danger"
-            id="deleteDetail"
-          >
-            Elimina
-          </button>
-
         </div>
+
+
+        <details
+          class="edit-box"
+          id="editBox"
+        >
+
+          <summary>
+            Modifica informazioni
+          </summary>
+
+
+          <div class="edit-grid">
+
+
+            <div class="two">
+
+              <div class="field">
+
+                <label>
+                  Nome
+                </label>
+
+                <input id="editName">
+
+              </div>
+
+              <div class="field">
+
+                <label>
+                  Marchio
+                </label>
+
+                <input id="editBrand">
+
+              </div>
+
+            </div>
+
+
+            <div class="two">
+
+              <div class="field">
+
+                <label>
+                  Prezzo
+                </label>
+
+                <input
+                  id="editPrice"
+                  type="number"
+                  step="0.01"
+                >
+
+              </div>
+
+              <div class="field">
+
+                <label>
+                  Valuta
+                </label>
+
+                <select id="editCurrency">
+
+                  <option>EUR</option>
+                  <option>USD</option>
+                  <option>GBP</option>
+                  <option>CHF</option>
+
+                </select>
+
+              </div>
+
+            </div>
+
+
+            <div class="two">
+
+              <div class="field">
+
+                <label>
+                  Categoria
+                </label>
+
+                <select id="editCategory"></select>
+
+              </div>
+
+              <div class="field">
+
+                <label>
+                  Colore
+                </label>
+
+                <input id="editColor">
+
+              </div>
+
+            </div>
+
+
+            <div class="field">
+
+              <label>
+                La mia taglia
+              </label>
+
+              <input id="editSize">
+
+            </div>
+
+
+            <div class="field">
+
+              <label>
+                Taglie disponibili
+              </label>
+
+              <input
+                id="editSizes"
+                placeholder="XS, S, M, L, XL"
+              >
+
+            </div>
+
+
+            <div class="field">
+
+              <label>
+                Note
+              </label>
+
+              <textarea id="editNotes"></textarea>
+
+            </div>
+
+
+            <div class="field">
+
+              <label>
+                Link prodotto
+              </label>
+
+              <input id="editUrl">
+
+            </div>
+
+
+            <div class="field">
+
+              <label>
+                Link immagini
+              </label>
+
+              <textarea id="editImages"></textarea>
+
+            </div>
+
+
+            <div class="detail-actions">
+
+              <button
+                class="btn primary"
+                id="saveDetail"
+              >
+                Salva modifiche
+              </button>
+
+              <button
+                class="btn danger"
+                id="deleteDetail"
+              >
+                Elimina
+              </button>
+
+            </div>
+
+          </div>
+
+        </details>
 
       </div>
 
@@ -2152,175 +1966,425 @@ button{
 
 
 <script>
+"use strict";
 
-/* ========================================
-   SETTINGS
-======================================== */
+const STORAGE_KEY = "wishlist-v5";
 
-const STORAGE_KEY =
-  "wishlist-v3";
+const LEGACY_KEYS = [
+  "wishlist-v4",
+  "wishlist-v3",
+  "wishlist-v2"
+];
 
 const IMPORTER_URL =
   "https://wishlist-importer.francescodadadifagagna.workers.dev/";
-
-
-
-/* ========================================
-   LOAD EXISTING ITEMS
-======================================== */
-
-let oldItems = [];
-
-try{
-
-  oldItems =
-    JSON.parse(
-      localStorage.getItem(
-        STORAGE_KEY
-      ) || "[]"
-    );
-
-  if(
-    oldItems.length === 0
-  ){
-
-    const previous =
-      JSON.parse(
-        localStorage.getItem(
-          "wishlist-v2"
-        ) || "[]"
-      );
-
-    if(
-      Array.isArray(previous) &&
-      previous.length
-    ){
-
-      oldItems = previous;
-
-    }
-
-  }
-
-}catch{
-
-  oldItems = [];
-
-}
-
-
-let items =
-  Array.isArray(oldItems)
-    ? oldItems
-    : [];
-
-
-let activeCategory =
-  "Everything";
-
-let selectedId =
-  null;
-
-
-/* ========================================
-   ELEMENTS
-======================================== */
-
-const grid =
-  document.getElementById(
-    "grid"
-  );
-
-const categories =
-  document.getElementById(
-    "categories"
-  );
-
-const searchInput =
-  document.getElementById(
-    "searchInput"
-  );
-
-const sortSelect =
-  document.getElementById(
-    "sortSelect"
-  );
-
-const addOverlay =
-  document.getElementById(
-    "addOverlay"
-  );
-
-const detailOverlay =
-  document.getElementById(
-    "detailOverlay"
-  );
-
 
 const FALLBACK_IMAGE =
   "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=900&q=80";
 
 
-/* ========================================
-   TRANSLATIONS
-======================================== */
-
 const CATEGORY_NAMES = {
 
-  Everything:
-    "Tutto",
-
-  Favorites:
-    "Preferiti",
-
-  Watches:
-    "Orologi",
-
-  Jewelry:
-    "Gioielli",
-
-  Hoodies:
-    "Felpe",
-
-  "T-Shirts":
-    "T-shirt",
-
-  Shirts:
-    "Camicie",
-
-  Jackets:
-    "Giacche",
-
-  Pants:
-    "Pantaloni",
-
-  Shoes:
-    "Scarpe",
-
-  Accessories:
-    "Accessori",
-
-  Other:
-    "Altro"
+  Everything:"Tutto",
+  Favorites:"Preferiti",
+  Watches:"Orologi",
+  Jewelry:"Gioielli",
+  Hoodies:"Felpe",
+  "T-Shirts":"T-shirt e polo",
+  Shirts:"Camicie",
+  Jackets:"Giacche",
+  Pants:"Pantaloni",
+  Shoes:"Scarpe",
+  Accessories:"Accessori",
+  Other:"Altro"
 
 };
 
 
-function categoryName(
-  category
-){
+const CATEGORY_VALUES = [
+  "Watches",
+  "Jewelry",
+  "Hoodies",
+  "T-Shirts",
+  "Shirts",
+  "Jackets",
+  "Pants",
+  "Shoes",
+  "Accessories",
+  "Other"
+];
 
-  return (
-    CATEGORY_NAMES[category] ||
-    category
-  );
+
+const CURRENCIES = [
+  "EUR",
+  "USD",
+  "GBP",
+  "CHF"
+];
+
+
+const $ =
+  id =>
+    document.getElementById(id);
+
+
+const grid = $("grid");
+const categories = $("categories");
+const searchInput = $("searchInput");
+const sortSelect = $("sortSelect");
+const addOverlay = $("addOverlay");
+const detailOverlay = $("detailOverlay");
+const detailModal = $("detailModal");
+
+
+let items = loadItems();
+let activeCategory = "Everything";
+let selectedId = null;
+let lastJiggleAt = 0;
+let touchStartY = null;
+
+
+/* =========================
+   TEXT NORMALIZATION
+========================= */
+
+function normalizeText(value = ""){
+
+  return String(value)
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9à-ÿ]+/gi, " ")
+    .replace(/\s+/g, " ")
+    .trim();
 
 }
 
 
-/* ========================================
-   SAVE
-======================================== */
+/* =========================
+   SMART CATEGORY DETECTION
+========================= */
+
+function detectCategory(product = {}){
+
+  const name =
+    normalizeText(
+      product.name
+    );
+
+  const brand =
+    normalizeText(
+      product.brand
+    );
+
+  const description =
+    normalizeText(
+      product.description
+    );
+
+  const sourceCategory =
+    normalizeText(
+      product.category
+    );
+
+  const mainText =
+    `${name} ${brand}`;
+
+  const extendedText =
+    `${name} ${brand} ${description} ${sourceCategory}`;
+
+
+  /*
+    IMPORTANTE:
+    diamo maggiore priorità al NOME
+    rispetto alla descrizione intera della pagina.
+  */
+
+
+  /* POLO / T-SHIRT */
+
+  if(
+    /\b(polo|polo shirt|polo shirts|t shirt|t-shirt|tshirt|tee|tees|maglietta|magliette|top uomo|top donna)\b/i
+      .test(mainText)
+  ){
+    return "T-Shirts";
+  }
+
+
+  /* CAMICIE */
+
+  if(
+    /\b(shirt|shirts|camicia|camicie|chemise|chemises|overshirt)\b/i
+      .test(mainText)
+  ){
+    return "Shirts";
+  }
+
+
+  /* FELPE */
+
+  if(
+    /\b(hoodie|hoodies|sweatshirt|sweatshirts|felpa|felpe|hooded sweatshirt|zip hoodie)\b/i
+      .test(extendedText)
+  ){
+    return "Hoodies";
+  }
+
+
+  /* GIACCHE */
+
+  if(
+    /\b(jacket|jackets|giacca|giacche|coat|coats|cappotto|cappotti|blazer|blazers|parka|bomber|windbreaker|outerwear)\b/i
+      .test(extendedText)
+  ){
+    return "Jackets";
+  }
+
+
+  /* PANTALONI */
+
+  if(
+    /\b(trousers|trouser|pants|pant|jeans|jean|chino|chinos|shorts|pantalone|pantaloni|bermuda|jogger|joggers)\b/i
+      .test(extendedText)
+  ){
+    return "Pants";
+  }
+
+
+  /* SCARPE */
+
+  if(
+    /\b(shoe|shoes|sneaker|sneakers|trainer|trainers|loafer|loafers|mocassin|mocassins|boot|boots|stivale|stivali|scarpa|scarpe|sandalo|sandali|slipper|slippers)\b/i
+      .test(extendedText)
+  ){
+    return "Shoes";
+  }
+
+
+  /* OROLOGI */
+
+  if(
+    /\b(watch|watches|orologio|orologi|montre|montres|chronograph|chronographe|automatic watch|quartz watch|timepiece)\b/i
+      .test(extendedText)
+  ){
+    return "Watches";
+  }
+
+
+  /*
+    GIOIELLI:
+    volutamente restrittivo.
+    "gold", "silver", "metal" NON bastano.
+  */
+
+  if(
+    /\b(necklace|necklaces|collana|collane|bracelet|bracelets|bracciale|bracciali|ring|rings|anello|anelli|earring|earrings|orecchino|orecchini|pendant|pendants|ciondolo|ciondoli|jewelry|jewellery|gioiello|gioielli|brooch|spilla)\b/i
+      .test(extendedText)
+  ){
+    return "Jewelry";
+  }
+
+
+  /* ACCESSORI */
+
+  if(
+    /\b(bag|bags|borsa|borse|wallet|wallets|portafoglio|belt|belts|cintura|cinture|hat|hats|cap|caps|cappello|cappelli|scarf|scarves|sciarpa|sciarpe|sunglasses|occhiali|tie|ties|cravatta|keyring|accessory|accessories|backpack|zaino|case|cover)\b/i
+      .test(extendedText)
+  ){
+    return "Accessories";
+  }
+
+
+  /*
+    Solo come fallback consideriamo la categoria
+    restituita dal Worker.
+  */
+
+  const workerCategory =
+    String(
+      product.category ||
+      ""
+    );
+
+
+  if(
+    CATEGORY_VALUES
+      .includes(
+        workerCategory
+      )
+  ){
+    return workerCategory;
+  }
+
+
+  return "Other";
+
+}
+
+
+/* =========================
+   STORAGE
+========================= */
+
+function loadItems(){
+
+  for(
+    const key of
+    [
+      STORAGE_KEY,
+      ...LEGACY_KEYS
+    ]
+  ){
+
+    try{
+
+      const parsed =
+        JSON.parse(
+          localStorage.getItem(key) ||
+          "[]"
+        );
+
+
+      if(
+        Array.isArray(parsed) &&
+        parsed.length
+      ){
+
+        const normalized =
+          parsed.map(
+            normalizeItem
+          );
+
+
+        localStorage.setItem(
+          STORAGE_KEY,
+          JSON.stringify(
+            normalized
+          )
+        );
+
+
+        return normalized;
+
+      }
+
+    }
+    catch{
+    }
+
+  }
+
+
+  return [];
+
+}
+
+
+function normalizeItem(item = {}){
+
+  const normalizedSizes =
+    Array.isArray(item.sizes)
+      ? item.sizes
+          .map(
+            size =>
+              String(size).trim()
+          )
+          .filter(Boolean)
+      : [];
+
+
+  return {
+
+    id:
+      item.id ||
+      (
+        crypto.randomUUID
+          ? crypto.randomUUID()
+          : String(
+              Date.now() +
+              Math.random()
+            )
+      ),
+
+    name:
+      item.name ||
+      "",
+
+    brand:
+      item.brand ||
+      "",
+
+    price:
+      normalizeNumber(
+        item.price
+      ),
+
+    currency:
+      CURRENCIES.includes(
+        item.currency
+      )
+        ? item.currency
+        : "EUR",
+
+    category:
+      CATEGORY_VALUES.includes(
+        item.category
+      )
+        ? item.category
+        : detectCategory(item),
+
+    color:
+      item.color ||
+      item.colour ||
+      "",
+
+    mySize:
+      item.mySize ||
+      item.size ||
+      "",
+
+    sizes:
+      normalizedSizes,
+
+    url:
+      item.url ||
+      "",
+
+    images:
+      Array.isArray(
+        item.images
+      )
+        ? item.images.filter(Boolean)
+        : [],
+
+    notes:
+      item.notes ||
+      "",
+
+    description:
+      item.description ||
+      "",
+
+    favorite:
+      Boolean(
+        item.favorite
+      ),
+
+    priority:
+      Boolean(
+        item.priority
+      ),
+
+    createdAt:
+      Number(
+        item.createdAt
+      ) ||
+      Date.now()
+
+  };
+
+}
+
 
 function save(){
 
@@ -2332,16 +2396,63 @@ function save(){
 }
 
 
-/* ========================================
+/* =========================
    HELPERS
-======================================== */
+========================= */
 
-function esc(
-  value
-){
+function normalizeNumber(value){
+
+  if(
+    value === null ||
+    value === undefined ||
+    value === ""
+  ){
+    return null;
+  }
+
+
+  if(
+    typeof value ===
+    "string"
+  ){
+
+    value =
+      value
+        .replace(
+          /[^\d.,-]/g,
+          ""
+        )
+        .replace(
+          /\.(?=\d{3}(?:\D|$))/g,
+          ""
+        )
+        .replace(
+          ",",
+          "."
+        );
+
+  }
+
+
+  const number =
+    Number(value);
+
+
+  return (
+    Number.isFinite(number) &&
+    number > 0
+  )
+    ? number
+    : null;
+
+}
+
+
+function esc(value){
 
   return String(
-    value || ""
+    value ??
+    ""
   )
   .replaceAll(
     "&",
@@ -2367,54 +2478,60 @@ function esc(
 }
 
 
-function hasRealPrice(
-  item
-){
+function categoryName(value){
 
-  return !(
-    item.price === null ||
-    item.price === undefined ||
-    item.price === "" ||
-    Number(item.price) <= 0 ||
-    Number.isNaN(
-      Number(item.price)
-    )
+  return (
+    CATEGORY_NAMES[value] ||
+    value ||
+    "Altro"
   );
 
 }
 
 
-function money(
-  item
-){
+function hasRealPrice(item){
+
+  return (
+    Number.isFinite(
+      Number(
+        item.price
+      )
+    ) &&
+    Number(
+      item.price
+    ) > 0
+  );
+
+}
+
+
+function money(item){
 
   if(
     !hasRealPrice(item)
   ){
-
-    return (
-      "Prezzo non trovato"
-    );
-
+    return "Prezzo non trovato";
   }
+
 
   try{
 
     return new Intl.NumberFormat(
       "it-IT",
       {
-        style:
-          "currency",
-
+        style:"currency",
         currency:
           item.currency ||
           "EUR"
       }
     ).format(
-      Number(item.price)
+      Number(
+        item.price
+      )
     );
 
-  }catch{
+  }
+  catch{
 
     return (
       item.price +
@@ -2430,9 +2547,113 @@ function money(
 }
 
 
-/* ========================================
-   CATEGORIES
-======================================== */
+function splitList(
+  value,
+  separator = ","
+){
+
+  return String(
+    value ||
+    ""
+  )
+  .split(separator)
+  .map(
+    value =>
+      value.trim()
+  )
+  .filter(Boolean);
+
+}
+
+
+function getItem(id){
+
+  return items.find(
+    item =>
+      item.id ===
+      id
+  );
+
+}
+
+
+function setBodyModalState(){
+
+  document.body
+    .classList
+    .toggle(
+      "modal-open",
+
+      addOverlay
+        .classList
+        .contains(
+          "show"
+        ) ||
+
+      detailOverlay
+        .classList
+        .contains(
+          "show"
+        )
+    );
+
+}
+
+
+function openOverlay(element){
+
+  element
+    .classList
+    .add(
+      "show"
+    );
+
+  setBodyModalState();
+
+}
+
+
+function closeOverlay(element){
+
+  element
+    .classList
+    .remove(
+      "show"
+    );
+
+  setBodyModalState();
+
+}
+
+
+/* SELECTS */
+
+function fillCategorySelect(id){
+
+  $(id).innerHTML =
+    CATEGORY_VALUES
+      .map(
+        value => `
+          <option value="${value}">
+            ${categoryName(value)}
+          </option>
+        `
+      )
+      .join("");
+
+}
+
+
+fillCategorySelect(
+  "newCategory"
+);
+
+fillCategorySelect(
+  "editCategory"
+);
+
+
+/* CATEGORIES */
 
 function getCategories(){
 
@@ -2459,101 +2680,59 @@ function getCategories(){
 function renderCategories(){
 
   categories.innerHTML =
-    "";
+    getCategories()
+      .map(
+        category => {
 
-
-  getCategories()
-    .forEach(
-      category => {
-
-        const button =
-          document
-            .createElement(
-              "button"
-            );
-
-
-        button.className =
-          "pill" +
-          (
+          const categoryCount =
             category ===
-            activeCategory
-              ? " active"
-              : ""
-          );
+            "Everything"
+
+              ? items.length
+
+              : category ===
+                "Favorites"
+
+                ? items.filter(
+                    item =>
+                      item.favorite
+                  ).length
+
+                : items.filter(
+                    item =>
+                      item.category ===
+                      category
+                  ).length;
 
 
-        let count =
-          items.length;
-
-
-        if(
-          category ===
-          "Favorites"
-        ){
-
-          count =
-            items.filter(
-              item =>
-                item.favorite
-            ).length;
-
-        }
-
-
-        else if(
-          category !==
-          "Everything"
-        ){
-
-          count =
-            items.filter(
-              item =>
-                item.category ===
-                category
-            ).length;
+          return `
+            <button
+              class="pill ${
+                category ===
+                activeCategory
+                  ? "active"
+                  : ""
+              }"
+              data-category="${esc(category)}"
+            >
+              ${esc(categoryName(category))}
+              ${categoryCount}
+            </button>
+          `;
 
         }
-
-
-        button.textContent =
-          categoryName(
-            category
-          ) +
-          " " +
-          count;
-
-
-        button.onclick =
-          () => {
-
-            activeCategory =
-              category;
-
-            render();
-
-          };
-
-
-        categories
-          .appendChild(
-            button
-          );
-
-      }
-    );
+      )
+      .join("");
 
 }
 
 
-/* ========================================
-   FILTERING / SORTING
-======================================== */
+/* FILTER/SORT */
 
 function visibleItems(){
 
   let result =
-    [...items];
+    items.slice();
 
 
   if(
@@ -2568,7 +2747,6 @@ function visibleItems(){
       );
 
   }
-
 
   else if(
     activeCategory !==
@@ -2598,15 +2776,18 @@ function visibleItems(){
       result.filter(
         item =>
 
-          (
-            (item.name || "") +
-            " " +
-            (item.brand || "") +
-            " " +
-            (item.category || "") +
-            " " +
-            (item.color || "")
-          )
+          [
+            item.name,
+            item.brand,
+            item.category,
+            item.color,
+            item.mySize,
+            ...(
+              item.sizes ||
+              []
+            )
+          ]
+          .join(" ")
           .toLowerCase()
           .includes(query)
 
@@ -2615,111 +2796,108 @@ function visibleItems(){
   }
 
 
-  if(
-    sortSelect.value ===
-    "low"
+  switch(
+    sortSelect.value
   ){
 
-    result.sort(
-      (a,b) => {
+    case "low":
 
-        if(
-          !hasRealPrice(a)
-        ) return 1;
+      result.sort(
+        (a,b) =>
+          (
+            hasRealPrice(a)
+              ? a.price
+              : Infinity
+          ) -
+          (
+            hasRealPrice(b)
+              ? b.price
+              : Infinity
+          )
+      );
 
-        if(
-          !hasRealPrice(b)
-        ) return -1;
-
-        return (
-          Number(a.price) -
-          Number(b.price)
-        );
-
-      }
-    );
-
-  }
+    break;
 
 
-  else if(
-    sortSelect.value ===
-    "high"
-  ){
+    case "high":
 
-    result.sort(
-      (a,b) => {
+      result.sort(
+        (a,b) =>
+          (
+            hasRealPrice(b)
+              ? b.price
+              : -Infinity
+          ) -
+          (
+            hasRealPrice(a)
+              ? a.price
+              : -Infinity
+          )
+      );
 
-        if(
-          !hasRealPrice(a)
-        ) return 1;
-
-        if(
-          !hasRealPrice(b)
-        ) return -1;
-
-        return (
-          Number(b.price) -
-          Number(a.price)
-        );
-
-      }
-    );
-
-  }
+    break;
 
 
-  else if(
-    sortSelect.value ===
-    "az"
-  ){
+    case "az":
 
-    result.sort(
-      (a,b) =>
-        (a.name || "")
+      result.sort(
+        (a,b) =>
+          (
+            a.name ||
+            ""
+          )
           .localeCompare(
-            b.name || "",
+            b.name ||
+            "",
             "it"
           )
-    );
+      );
 
-  }
-
-
-  else if(
-    sortSelect.value ===
-    "recent"
-  ){
-
-    result.sort(
-      (a,b) =>
-        (
-          b.createdAt ||
-          0
-        ) -
-        (
-          a.createdAt ||
-          0
-        )
-    );
-
-  }
+    break;
 
 
-  else if(
-    sortSelect.value ===
-    "priority"
-  ){
+    case "priority":
 
-    result.sort(
-      (a,b) =>
-        Number(
-          b.priority
-        ) -
-        Number(
-          a.priority
-        )
-    );
+      result.sort(
+        (a,b) =>
+
+          Number(
+            b.priority
+          ) -
+
+          Number(
+            a.priority
+          )
+
+          ||
+
+          (
+            b.createdAt ||
+            0
+          ) -
+
+          (
+            a.createdAt ||
+            0
+          )
+      );
+
+    break;
+
+
+    default:
+
+      result.sort(
+        (a,b) =>
+          (
+            b.createdAt ||
+            0
+          ) -
+          (
+            a.createdAt ||
+            0
+          )
+      );
 
   }
 
@@ -2729,9 +2907,7 @@ function visibleItems(){
 }
 
 
-/* ========================================
-   GRID
-======================================== */
+/* GRID */
 
 function renderGrid(){
 
@@ -2739,20 +2915,14 @@ function renderGrid(){
     visibleItems();
 
 
-  document
-    .getElementById(
-      "sectionTitle"
-    )
+  $("sectionTitle")
     .textContent =
       categoryName(
         activeCategory
       );
 
 
-  document
-    .getElementById(
-      "count"
-    )
+  $("count")
     .textContent =
       visible.length +
       " " +
@@ -2764,18 +2934,13 @@ function renderGrid(){
 
 
   if(
-    visible.length === 0
+    !visible.length
   ){
 
     grid.innerHTML = `
       <div class="empty">
-        <h2>
-          Ancora nessun prodotto
-        </h2>
-
-        <p>
-          Premi + Aggiungi per inserire il tuo primo prodotto.
-        </p>
+        <h2>Ancora nessun prodotto</h2>
+        <p>Premi + Aggiungi per inserire il tuo primo prodotto.</p>
       </div>
     `;
 
@@ -2790,18 +2955,8 @@ function renderGrid(){
         item => {
 
           const image =
-            (
-              item.images &&
-              item.images.length
-            )
-              ? item.images[0]
-              : FALLBACK_IMAGE;
-
-
-          const priceClass =
-            hasRealPrice(item)
-              ? ""
-              : " missing";
+            item.images?.[0] ||
+            FALLBACK_IMAGE;
 
 
           return `
@@ -2811,58 +2966,93 @@ function renderGrid(){
             >
 
               <button
-                class="circle priority ${item.priority ? "on" : ""}"
-                data-priority="${esc(item.id)}"
+                class="circle priority ${
+                  item.priority
+                    ? "on"
+                    : ""
+                }"
+                data-action="priority"
               >
                 ⚡
               </button>
 
               <button
-                class="circle favorite ${item.favorite ? "on" : ""}"
-                data-favorite="${esc(item.id)}"
+                class="circle favorite ${
+                  item.favorite
+                    ? "on"
+                    : ""
+                }"
+                data-action="favorite"
               >
-                ${item.favorite ? "♥" : "♡"}
+                ${
+                  item.favorite
+                    ? "♥"
+                    : "♡"
+                }
               </button>
+
 
               <div class="card-image">
 
                 <img
                   src="${esc(image)}"
-                  alt=""
+                  alt="${esc(item.name)}"
                   loading="lazy"
+                  decoding="async"
                 >
 
               </div>
 
+
               <div class="card-body">
 
                 <div class="brand">
-                  ${esc(item.brand || "Marchio")}
+                  ${esc(
+                    item.brand ||
+                    "Marchio"
+                  )}
                 </div>
 
                 <div class="name">
-                  ${esc(item.name || "Senza nome")}
+                  ${esc(
+                    item.name ||
+                    "Senza nome"
+                  )}
                 </div>
+
 
                 <div class="row">
 
-                  <div class="price${priceClass}">
+                  <div
+                    class="price ${
+                      hasRealPrice(item)
+                        ? ""
+                        : "missing"
+                    }"
+                  >
                     ${esc(money(item))}
                   </div>
 
                   <div class="tag">
-                    ${esc(categoryName(item.category || "Other"))}
+                    ${esc(
+                      categoryName(
+                        item.category
+                      )
+                    )}
                   </div>
 
                 </div>
 
+
                 ${
                   item.priority
+
                     ? `
                       <div class="buy-next">
                         ⚡ Da comprare
                       </div>
                     `
+
                     : ""
                 }
 
@@ -2875,106 +3065,121 @@ function renderGrid(){
       )
       .join("");
 
-
-  document
-    .querySelectorAll(
-      ".card"
-    )
-    .forEach(
-      card => {
-
-        card.onclick =
-          () => {
-
-            openDetail(
-              card.dataset.id
-            );
-
-          };
-
-      }
-    );
-
-
-  document
-    .querySelectorAll(
-      "[data-favorite]"
-    )
-    .forEach(
-      button => {
-
-        button.onclick =
-          event => {
-
-            event
-              .stopPropagation();
-
-            toggleFavorite(
-              button.dataset.favorite
-            );
-
-          };
-
-      }
-    );
-
-
-  document
-    .querySelectorAll(
-      "[data-priority]"
-    )
-    .forEach(
-      button => {
-
-        button.onclick =
-          event => {
-
-            event
-              .stopPropagation();
-
-            togglePriority(
-              button.dataset.priority
-            );
-
-          };
-
-      }
-    );
-
-
-  requestAnimationFrame(
-    updateCardParallax
-  );
-
 }
 
-
-/* ========================================
-   RENDER
-======================================== */
 
 function render(){
 
   renderCategories();
-
   renderGrid();
 
 }
 
 
-/* ========================================
-   FAVORITE / PRIORITY
-======================================== */
+/* GRID EVENTS */
 
-function toggleFavorite(
-  id
+categories
+  .addEventListener(
+    "click",
+    event => {
+
+      const button =
+        event.target.closest(
+          "[data-category]"
+        );
+
+
+      if(!button){
+        return;
+      }
+
+
+      activeCategory =
+        button.dataset.category;
+
+
+      render();
+
+    }
+  );
+
+
+grid
+  .addEventListener(
+    "click",
+    event => {
+
+      const card =
+        event.target.closest(
+          ".card"
+        );
+
+
+      if(!card){
+        return;
+      }
+
+
+      const id =
+        card.dataset.id;
+
+
+      const action =
+        event.target
+          .closest(
+            "[data-action]"
+          )
+          ?.dataset
+          .action;
+
+
+      if(
+        action ===
+        "favorite"
+      ){
+
+        event.stopPropagation();
+
+        toggle(
+          id,
+          "favorite"
+        );
+
+        return;
+
+      }
+
+
+      if(
+        action ===
+        "priority"
+      ){
+
+        event.stopPropagation();
+
+        toggle(
+          id,
+          "priority"
+        );
+
+        return;
+
+      }
+
+
+      openDetail(id);
+
+    }
+  );
+
+
+function toggle(
+  id,
+  key
 ){
 
   const item =
-    items.find(
-      item =>
-        item.id === id
-    );
+    getItem(id);
 
 
   if(!item){
@@ -2982,100 +3187,149 @@ function toggleFavorite(
   }
 
 
-  item.favorite =
-    !item.favorite;
+  item[key] =
+    !item[key];
 
 
   save();
-
   render();
 
-}
 
+  if(
+    detailOverlay
+      .classList
+      .contains(
+        "show"
+      )
+    &&
+    selectedId ===
+    id
+  ){
 
-function togglePriority(
-  id
-){
-
-  const item =
-    items.find(
-      item =>
-        item.id === id
+    refreshDetailHeader(
+      item
     );
 
-
-  if(!item){
-    return;
   }
-
-
-  item.priority =
-    !item.priority;
-
-
-  save();
-
-  render();
 
 }
 
 
-/* ========================================
-   ADD MODAL
-======================================== */
+/* SEARCH */
 
-document
-  .getElementById(
-    "addBtn"
-  )
-  .onclick =
+searchInput
+  .addEventListener(
+    "input",
+    renderGrid
+  );
+
+
+sortSelect
+  .addEventListener(
+    "change",
+    renderGrid
+  );
+
+
+/* MODALS */
+
+$("addBtn")
+  .addEventListener(
+    "click",
     () => {
 
       resetAddForm();
+      openOverlay(addOverlay);
 
-      addOverlay
-        .classList
-        .add(
-          "show"
+    }
+  );
+
+
+$("cancelAdd")
+  .addEventListener(
+    "click",
+    () =>
+      closeOverlay(
+        addOverlay
+      )
+  );
+
+
+$("closeDetail")
+  .addEventListener(
+    "click",
+    () =>
+      closeOverlay(
+        detailOverlay
+      )
+  );
+
+
+addOverlay
+  .addEventListener(
+    "click",
+    event => {
+
+      if(
+        event.target ===
+        addOverlay
+      ){
+
+        closeOverlay(
+          addOverlay
         );
 
-    };
+      }
+
+    }
+  );
+
+
+detailOverlay
+  .addEventListener(
+    "click",
+    event => {
+
+      if(
+        event.target ===
+        detailOverlay
+      ){
+
+        closeOverlay(
+          detailOverlay
+        );
+
+      }
+
+    }
+  );
 
 
 document
-  .getElementById(
-    "cancelAdd"
-  )
-  .onclick =
-    () => {
+  .addEventListener(
+    "keydown",
+    event => {
 
-      addOverlay
-        .classList
-        .remove(
-          "show"
+      if(
+        event.key ===
+        "Escape"
+      ){
+
+        closeOverlay(
+          addOverlay
         );
 
-    };
-
-
-addOverlay.onclick =
-  event => {
-
-    if(
-      event.target ===
-      addOverlay
-    ){
-
-      addOverlay
-        .classList
-        .remove(
-          "show"
+        closeOverlay(
+          detailOverlay
         );
+
+      }
 
     }
+  );
 
-  };
 
+/* RESET */
 
 function resetAddForm(){
 
@@ -3094,77 +3348,53 @@ function resetAddForm(){
   .forEach(
     id => {
 
-      document
-        .getElementById(id)
-        .value =
-          "";
+      $(id).value =
+        "";
 
     }
   );
 
 
-  document
-    .getElementById(
-      "newCurrency"
-    )
+  $("newCurrency")
     .value =
       "EUR";
 
 
-  document
-    .getElementById(
-      "newCategory"
-    )
+  $("newCategory")
     .value =
       "Other";
 
 
-  document
-    .getElementById(
-      "importNotice"
-    )
+  $("importNotice")
     .textContent =
       "Incolla un link prodotto e premi Importa.";
 
 }
 
 
-/* ========================================
-   IMPORT PRODUCT
-======================================== */
+/* IMPORT */
 
-document
-  .getElementById(
-    "importBtn"
-  )
-  .onclick =
-async () => {
+$("importBtn")
+  .addEventListener(
+    "click",
+    importProduct
+  );
 
-  const input =
-    document
-      .getElementById(
-        "importUrl"
-      );
 
+async function importProduct(){
 
   const url =
-    input
+    $("importUrl")
       .value
       .trim();
 
 
   const notice =
-    document
-      .getElementById(
-        "importNotice"
-      );
+    $("importNotice");
 
 
   const button =
-    document
-      .getElementById(
-        "importBtn"
-      );
+    $("importBtn");
 
 
   if(!url){
@@ -3191,12 +3421,24 @@ async () => {
 
   try{
 
+    const controller =
+      new AbortController();
+
+
+    const timeout =
+      setTimeout(
+        () =>
+          controller.abort(),
+        15000
+      );
+
+
     const response =
       await fetch(
         IMPORTER_URL,
         {
-          method:
-            "POST",
+
+          method:"POST",
 
           headers:{
             "Content-Type":
@@ -3205,213 +3447,207 @@ async () => {
 
           body:
             JSON.stringify({
-              url:url
-            })
+              url
+            }),
+
+          signal:
+            controller.signal
+
         }
       );
 
 
+    clearTimeout(
+      timeout
+    );
+
+
     const data =
-      await response.json();
+      await response
+        .json()
+        .catch(
+          () => ({})
+        );
 
 
     if(
       !response.ok ||
-      !data.ok
+      data.ok ===
+      false
     ){
 
       throw new Error(
         data.error ||
-        "Importazione non riuscita"
+        `Errore ${response.status}`
       );
 
     }
 
 
-    document
-      .getElementById(
-        "newName"
-      )
+    $("newName")
       .value =
-        data.name || "";
+        data.name ||
+        "";
 
 
-    document
-      .getElementById(
-        "newBrand"
-      )
+    $("newBrand")
       .value =
-        data.brand || "";
+        data.brand ||
+        "";
+
+
+    $("newPrice")
+      .value =
+        normalizeNumber(
+          data.price
+        ) ??
+        "";
 
 
     if(
-      data.price !== null &&
-      data.price !== undefined &&
-      Number(data.price) > 0
+      CURRENCIES
+        .includes(
+          data.currency
+        )
     ){
 
-      document
-        .getElementById(
-          "newPrice"
-        )
-        .value =
-          data.price;
-
-    }
-
-
-    else{
-
-      document
-        .getElementById(
-          "newPrice"
-        )
-        .value =
-          "";
-
-    }
-
-
-    if(
-      [
-        "EUR",
-        "USD",
-        "GBP",
-        "CHF"
-      ]
-      .includes(
-        data.currency
-      )
-    ){
-
-      document
-        .getElementById(
-          "newCurrency"
-        )
+      $("newCurrency")
         .value =
           data.currency;
 
     }
 
 
-    const validCategories = [
-      "Watches",
-      "Jewelry",
-      "Hoodies",
-      "T-Shirts",
-      "Shirts",
-      "Jackets",
-      "Pants",
-      "Shoes",
-      "Accessories",
-      "Other"
-    ];
+    const detectedCategory =
+      detectCategory(data);
 
+
+    $("newCategory")
+      .value =
+        CATEGORY_VALUES
+          .includes(
+            detectedCategory
+          )
+
+          ? detectedCategory
+
+          : "Other";
+
+
+    $("newColor")
+      .value =
+        data.color ||
+        data.colour ||
+        "";
+
+
+    const importedSizes =
+      Array.isArray(
+        data.sizes
+      )
+
+        ? data.sizes
+            .map(
+              value =>
+                String(value)
+                  .trim()
+            )
+            .filter(Boolean)
+
+        : [];
+
+
+    $("newSizes")
+      .value =
+        importedSizes
+          .join(
+            ", "
+          );
+
+
+    /*
+      Se esiste una sola taglia,
+      la usiamo anche come taglia personale.
+    */
 
     if(
-      validCategories
-        .includes(
-          data.category
-        )
+      importedSizes.length ===
+      1
     ){
 
-      document
-        .getElementById(
-          "newCategory"
-        )
+      $("newSize")
         .value =
-          data.category;
+          importedSizes[0];
 
     }
 
 
-    document
-      .getElementById(
-        "newColor"
-      )
-      .value =
-        data.color || "";
+    /*
+      Alcuni Worker restituiscono size
+      separatamente.
+    */
+
+    if(
+      data.size &&
+      !$("newSize")
+        .value
+    ){
+
+      $("newSize")
+        .value =
+          data.size;
+
+    }
 
 
-    document
-      .getElementById(
-        "newSizes"
-      )
-      .value =
-        Array.isArray(
-          data.sizes
-        )
-          ? data.sizes.join(
-              ", "
-            )
-          : "";
-
-
-    document
-      .getElementById(
-        "newUrl"
-      )
+    $("newUrl")
       .value =
         data.url ||
         url;
 
 
-    document
-      .getElementById(
-        "newImages"
-      )
+    $("newImages")
       .value =
         Array.isArray(
           data.images
         )
-          ? data.images.join(
-              "\n"
-            )
+
+          ? data.images
+              .join(
+                "\n"
+              )
+
           : "";
 
 
     const found = [];
 
 
-    if(
-      data.name
-    ){
-
-      found.push(
-        "nome"
-      );
-
+    if(data.name){
+      found.push("nome");
     }
 
-
-    if(
-      data.brand
-    ){
-
-      found.push(
-        "marchio"
-      );
-
+    if(data.brand){
+      found.push("marchio");
     }
 
-
     if(
-      data.price !== null &&
-      data.price !== undefined &&
-      Number(data.price) > 0
+      normalizeNumber(
+        data.price
+      )
     ){
-
-      found.push(
-        "prezzo"
-      );
-
+      found.push("prezzo");
     }
 
+    if(data.color){
+      found.push("colore");
+    }
 
-    if(
-      data.images &&
-      data.images.length
-    ){
+    if(importedSizes.length){
+      found.push("taglie");
+    }
+
+    if(data.images?.length){
 
       found.push(
         data.images.length +
@@ -3421,56 +3657,40 @@ async () => {
     }
 
 
-    if(
-      data.sizes &&
-      data.sizes.length
-    ){
-
-      found.push(
-        "taglie"
-      );
-
-    }
-
-
-    if(
-      data.price === null ||
-      data.price === undefined ||
-      Number(data.price) <= 0
-    ){
-
-      notice.textContent =
-        "✓ Prodotto importato, ma il negozio non ha fornito il prezzo automaticamente. " +
-        "Inseriscilo manualmente se necessario.";
-
-    }
-
-
-    else{
-
-      notice.textContent =
-        "✓ Importato: " +
-        found.join(", ") +
-        ". Controlla i dati e premi Aggiungi alla lista.";
-
-    }
+    notice.textContent =
+      "✓ Importato: " +
+      (
+        found.join(", ") ||
+        "informazioni disponibili"
+      ) +
+      ". Categoria rilevata: " +
+      categoryName(
+        detectedCategory
+      ) +
+      ".";
 
   }
 
   catch(error){
 
-    document
-      .getElementById(
-        "newUrl"
-      )
+    $("newUrl")
       .value =
         url;
 
 
     notice.textContent =
-      "Non sono riuscito a leggere automaticamente questo negozio. " +
-      "Puoi comunque inserire i dati manualmente. " +
-      error.message;
+      error.name ===
+      "AbortError"
+
+        ? "Il negozio sta impiegando troppo tempo a rispondere."
+
+        : (
+            "Non sono riuscito a leggere automaticamente questo negozio. " +
+            (
+              error.message ||
+              ""
+            )
+          );
 
   }
 
@@ -3485,25 +3705,18 @@ async () => {
 
   }
 
-};
+}
 
 
-/* ========================================
-   SAVE NEW PRODUCT
-======================================== */
+/* SAVE NEW */
 
-document
-  .getElementById(
-    "saveNew"
-  )
-  .onclick =
+$("saveNew")
+  .addEventListener(
+    "click",
     () => {
 
       const name =
-        document
-          .getElementById(
-            "newName"
-          )
+        $("newName")
           .value
           .trim();
 
@@ -3519,52 +3732,7 @@ document
       }
 
 
-      const priceValue =
-        document
-          .getElementById(
-            "newPrice"
-          )
-          .value
-          .trim();
-
-
-      const price =
-        priceValue === ""
-          ? null
-          : Number(
-              priceValue
-            );
-
-
-      const images =
-        document
-          .getElementById(
-            "newImages"
-          )
-          .value
-          .split("\n")
-          .map(
-            value =>
-              value.trim()
-          )
-          .filter(Boolean);
-
-
-      const sizes =
-        document
-          .getElementById(
-            "newSizes"
-          )
-          .value
-          .split(",")
-          .map(
-            value =>
-              value.trim()
-          )
-          .filter(Boolean);
-
-
-      items.unshift({
+      const rawItem = {
 
         id:
           crypto.randomUUID
@@ -3573,111 +3741,103 @@ document
                 Date.now()
               ),
 
-        name:name,
+        name,
 
         brand:
-          document
-            .getElementById(
-              "newBrand"
-            )
+          $("newBrand")
             .value
             .trim(),
 
         price:
-          Number.isNaN(
-            price
-          )
-            ? null
-            : price,
+          $("newPrice")
+            .value,
 
         currency:
-          document
-            .getElementById(
-              "newCurrency"
-            )
+          $("newCurrency")
             .value,
 
         category:
-          document
-            .getElementById(
-              "newCategory"
-            )
+          $("newCategory")
             .value,
 
         color:
-          document
-            .getElementById(
-              "newColor"
-            )
+          $("newColor")
             .value
             .trim(),
 
         mySize:
-          document
-            .getElementById(
-              "newSize"
-            )
+          $("newSize")
             .value
             .trim(),
 
-        sizes:sizes,
+        sizes:
+          splitList(
+            $("newSizes")
+              .value
+          ),
 
         url:
-          document
-            .getElementById(
-              "newUrl"
-            )
+          $("newUrl")
             .value
             .trim(),
 
-        images:images,
+        images:
+          splitList(
+            $("newImages")
+              .value,
+            "\n"
+          ),
 
         notes:
-          document
-            .getElementById(
-              "newNotes"
-            )
+          $("newNotes")
             .value
             .trim(),
-
-        favorite:false,
-
-        priority:false,
 
         createdAt:
           Date.now()
 
-      });
+      };
+
+
+      /*
+        Se la categoria è Altro,
+        facciamo un'ultima classificazione.
+      */
+
+      if(
+        rawItem.category ===
+        "Other"
+      ){
+
+        rawItem.category =
+          detectCategory(
+            rawItem
+          );
+
+      }
+
+
+      items.unshift(
+        normalizeItem(
+          rawItem
+        )
+      );
 
 
       save();
-
-
-      addOverlay
-        .classList
-        .remove(
-          "show"
-        );
-
-
+      closeOverlay(addOverlay);
       render();
 
-    };
+    }
+  );
 
 
-/* ========================================
-   DETAIL
-======================================== */
+/* DETAIL */
 
-function openDetail(
-  id
-){
+function openDetail(id){
 
   const item =
-    items.find(
-      item =>
-        item.id === id
-    );
+    getItem(id);
 
 
   if(!item){
@@ -3689,148 +3849,120 @@ function openDetail(
     id;
 
 
-  document
-    .getElementById(
-      "detailBrand"
-    )
-    .textContent =
-      item.brand ||
-      "Marchio";
+  $("editBox")
+    .open =
+      false;
 
 
-  document
-    .getElementById(
-      "detailName"
-    )
-    .textContent =
+  fillDetail(
+    item
+  );
+
+
+  openOverlay(
+    detailOverlay
+  );
+
+}
+
+
+function fillDetail(item){
+
+  refreshDetailHeader(
+    item
+  );
+
+
+  $("editName")
+    .value =
       item.name ||
-      "Senza nome";
+      "";
 
 
-  document
-    .getElementById(
-      "detailPrice"
-    )
-    .textContent =
-      money(item);
-
-
-  document
-    .getElementById(
-      "editName"
-    )
+  $("editBrand")
     .value =
-      item.name || "";
+      item.brand ||
+      "";
 
 
-  document
-    .getElementById(
-      "editBrand"
-    )
+  $("editPrice")
     .value =
-      item.brand || "";
-
-
-  document
-    .getElementById(
-      "editPrice"
-    )
-    .value =
-      hasRealPrice(item)
+      hasRealPrice(
+        item
+      )
         ? item.price
         : "";
 
 
-  document
-    .getElementById(
-      "editCurrency"
-    )
+  $("editCurrency")
     .value =
       item.currency ||
       "EUR";
 
 
-  document
-    .getElementById(
-      "editCategory"
-    )
+  $("editCategory")
     .value =
       item.category ||
       "Other";
 
 
-  document
-    .getElementById(
-      "editColor"
-    )
+  $("editColor")
     .value =
-      item.color || "";
+      item.color ||
+      "";
 
 
-  document
-    .getElementById(
-      "editSize"
-    )
+  $("editSize")
     .value =
-      item.mySize || "";
+      item.mySize ||
+      "";
 
 
-  document
-    .getElementById(
-      "editNotes"
-    )
+  $("editSizes")
     .value =
-      item.notes || "";
+      (
+        item.sizes ||
+        []
+      )
+      .join(
+        ", "
+      );
 
 
-  document
-    .getElementById(
-      "editUrl"
-    )
+  $("editNotes")
     .value =
-      item.url || "";
+      item.notes ||
+      "";
 
 
-  document
-    .getElementById(
-      "editImages"
-    )
+  $("editUrl")
+    .value =
+      item.url ||
+      "";
+
+
+  $("editImages")
     .value =
       (
         item.images ||
         []
-      ).join(
+      )
+      .join(
         "\n"
       );
 
 
-  const storeLink =
-    document
-      .getElementById(
-        "storeLink"
-      );
-
-
-  storeLink.href =
-    item.url ||
-    "#";
-
-
   const images =
-    (
-      item.images &&
-      item.images.length
-    )
+    item.images?.length
+
       ? item.images
+
       : [
           FALLBACK_IMAGE
         ];
 
 
-  document
-    .getElementById(
-      "detailMainImage"
-    )
+  $("detailMainImage")
     .src =
       images[0];
 
@@ -3844,159 +3976,260 @@ function openDetail(
     item
   );
 
+}
 
-  document
-    .getElementById(
-      "detailFavorite"
-    )
+
+/* DETAIL INFO */
+
+function refreshDetailHeader(item){
+
+  $("detailBrand")
+    .textContent =
+      item.brand ||
+      "Marchio non indicato";
+
+
+  $("detailName")
+    .textContent =
+      item.name ||
+      "Senza nome";
+
+
+  $("detailPrice")
+    .textContent =
+      money(
+        item
+      );
+
+
+  $("detailFavorite")
     .textContent =
       item.favorite
         ? "♥ Preferito"
         : "♡ Preferito";
 
 
-  document
-    .getElementById(
-      "detailPriority"
-    )
+  $("detailPriority")
     .textContent =
       item.priority
         ? "⚡ Da comprare ✓"
         : "⚡ Da comprare";
 
 
-  detailOverlay
-    .classList
-    .remove(
-      "show"
+  const category =
+    categoryName(
+      item.category ||
+      "Other"
     );
 
 
-  void detailOverlay
-    .offsetWidth;
+  const color =
+    item.color ||
+    "Non indicato";
 
 
-  detailOverlay
-    .classList
-    .add(
-      "show"
-    );
-
-}
-
-
-/* ========================================
-   THUMBNAILS
-======================================== */
-
-function renderThumbnails(
-  images
-){
-
-  const box =
-    document
-      .getElementById(
-        "thumbnails"
-      );
-
-
-  box.innerHTML =
-    images
-      .map(
-        (
-          image,
-          index
-        ) => `
-          <button
-            class="thumb ${index === 0 ? "active" : ""}"
-            data-image="${esc(image)}"
-          >
-            <img
-              src="${esc(image)}"
-              alt=""
-            >
-          </button>
-        `
-      )
-      .join("");
-
-
-  box
-    .querySelectorAll(
-      ".thumb"
-    )
-    .forEach(
-      button => {
-
-        button.onclick =
-          () => {
-
-            document
-              .getElementById(
-                "detailMainImage"
-              )
-              .src =
-                button
-                  .dataset
-                  .image;
-
-
-            box
-              .querySelectorAll(
-                ".thumb"
-              )
-              .forEach(
-                item =>
-                  item
-                    .classList
-                    .remove(
-                      "active"
-                    )
-              );
-
-
-            button
-              .classList
-              .add(
-                "active"
-              );
-
-          };
-
-      }
-    );
-
-}
-
-
-/* ========================================
-   SIZES
-======================================== */
-
-function renderSizes(
-  item
-){
-
-  const box =
-    document
-      .getElementById(
-        "sizeButtons"
-      );
+  const mySize =
+    item.mySize ||
+    "Non indicata";
 
 
   const sizes =
-    (
-      item.sizes &&
-      item.sizes.length
-    )
+    item.sizes?.length
+
+      ? item.sizes.join(", ")
+
+      : "Non indicate";
+
+
+  $("detailFacts")
+    .innerHTML = `
+
+      <div class="fact">
+        <strong>Categoria</strong>
+        <span>
+          ${esc(category)}
+        </span>
+      </div>
+
+      <div class="fact">
+        <strong>Colore</strong>
+        <span>
+          ${esc(color)}
+        </span>
+      </div>
+
+      <div class="fact">
+        <strong>La mia taglia</strong>
+        <span>
+          ${esc(mySize)}
+        </span>
+      </div>
+
+      <div class="fact">
+        <strong>Taglie disponibili</strong>
+        <span>
+          ${esc(sizes)}
+        </span>
+      </div>
+    `;
+
+
+  $("detailNotesView")
+    .textContent =
+      item.notes ||
+      "";
+
+
+  const link =
+    $("storeLink");
+
+
+  if(item.url){
+
+    link.href =
+      item.url;
+
+    link.classList
+      .remove(
+        "disabled"
+      );
+
+  }
+
+  else{
+
+    link.removeAttribute(
+      "href"
+    );
+
+    link.classList
+      .add(
+        "disabled"
+      );
+
+  }
+
+}
+
+
+/* THUMBS */
+
+function renderThumbnails(images){
+
+  const box =
+    $("thumbnails");
+
+
+  box.innerHTML =
+    images.length <= 1
+
+      ? ""
+
+      : images
+          .map(
+            (
+              image,
+              index
+            ) => `
+              <button
+                class="thumb ${
+                  index === 0
+                    ? "active"
+                    : ""
+                }"
+                data-image="${esc(image)}"
+              >
+
+                <img
+                  src="${esc(image)}"
+                  alt=""
+                  loading="lazy"
+                  decoding="async"
+                >
+
+              </button>
+            `
+          )
+          .join("");
+
+}
+
+
+$("thumbnails")
+  .addEventListener(
+    "click",
+    event => {
+
+      const button =
+        event.target.closest(
+          ".thumb"
+        );
+
+
+      if(!button){
+        return;
+      }
+
+
+      $("detailMainImage")
+        .src =
+          button.dataset.image;
+
+
+      $("thumbnails")
+        .querySelectorAll(
+          ".thumb"
+        )
+        .forEach(
+          item =>
+            item
+              .classList
+              .remove(
+                "active"
+              )
+        );
+
+
+      button
+        .classList
+        .add(
+          "active"
+        );
+
+    }
+  );
+
+
+/* SIZES */
+
+function renderSizes(item){
+
+  const box =
+    $("sizeButtons");
+
+
+  const sizes =
+    item.sizes?.length
+
       ? item.sizes
-      : [
-          "XS",
-          "S",
-          "M",
-          "L",
-          "XL"
-        ];
+
+      : (
+          item.mySize
+
+            ? [
+                item.mySize
+              ]
+
+            : []
+        );
+
+
+  $("sizesViewWrap")
+    .style
+    .display =
+      sizes.length
+        ? ""
+        : "none";
 
 
   box.innerHTML =
@@ -4004,7 +4237,12 @@ function renderSizes(
       .map(
         size => `
           <button
-            class="size ${item.mySize === size ? "selected" : ""}"
+            class="size ${
+              item.mySize ===
+              size
+                ? "selected"
+                : ""
+            }"
             data-size="${esc(size)}"
           >
             ${esc(size)}
@@ -4013,114 +4251,88 @@ function renderSizes(
       )
       .join("");
 
-
-  box
-    .querySelectorAll(
-      ".size"
-    )
-    .forEach(
-      button => {
-
-        button.onclick =
-          () => {
-
-            const size =
-              button
-                .dataset
-                .size;
-
-
-            document
-              .getElementById(
-                "editSize"
-              )
-              .value =
-                size;
-
-
-            box
-              .querySelectorAll(
-                ".size"
-              )
-              .forEach(
-                item =>
-                  item
-                    .classList
-                    .remove(
-                      "selected"
-                    )
-              );
-
-
-            button
-              .classList
-              .add(
-                "selected"
-              );
-
-          };
-
-      }
-    );
-
 }
 
 
-/* ========================================
-   CLOSE DETAIL
-======================================== */
+$("sizeButtons")
+  .addEventListener(
+    "click",
+    event => {
 
-document
-  .getElementById(
-    "closeDetail"
-  )
-  .onclick =
-    () => {
-
-      detailOverlay
-        .classList
-        .remove(
-          "show"
+      const button =
+        event.target.closest(
+          ".size"
         );
 
-    };
+
+      if(!button){
+        return;
+      }
 
 
-detailOverlay.onclick =
-  event => {
+      $("editSize")
+        .value =
+          button.dataset.size;
 
-    if(
-      event.target ===
-      detailOverlay
-    ){
 
-      detailOverlay
+      $("sizeButtons")
+        .querySelectorAll(
+          ".size"
+        )
+        .forEach(
+          item =>
+            item
+              .classList
+              .remove(
+                "selected"
+              )
+        );
+
+
+      button
         .classList
-        .remove(
-          "show"
+        .add(
+          "selected"
         );
 
     }
+  );
 
-  };
+
+/* ACTIONS */
+
+$("detailFavorite")
+  .addEventListener(
+    "click",
+    () =>
+      toggle(
+        selectedId,
+        "favorite"
+      )
+  );
 
 
-/* ========================================
-   DETAIL FAVORITE
-======================================== */
+$("detailPriority")
+  .addEventListener(
+    "click",
+    () =>
+      toggle(
+        selectedId,
+        "priority"
+      )
+  );
 
-document
-  .getElementById(
-    "detailFavorite"
-  )
-  .onclick =
+
+/* SAVE DETAIL */
+
+$("saveDetail")
+  .addEventListener(
+    "click",
     () => {
 
       const item =
-        items.find(
-          item =>
-            item.id ===
-            selectedId
+        getItem(
+          selectedId
         );
 
 
@@ -4129,216 +4341,97 @@ document
       }
 
 
-      item.favorite =
-        !item.favorite;
+      Object.assign(
 
+        item,
 
-      save();
+        normalizeItem({
 
-      openDetail(
-        selectedId
+          ...item,
+
+          name:
+            $("editName")
+              .value
+              .trim(),
+
+          brand:
+            $("editBrand")
+              .value
+              .trim(),
+
+          price:
+            $("editPrice")
+              .value,
+
+          currency:
+            $("editCurrency")
+              .value,
+
+          category:
+            $("editCategory")
+              .value,
+
+          color:
+            $("editColor")
+              .value
+              .trim(),
+
+          mySize:
+            $("editSize")
+              .value
+              .trim(),
+
+          sizes:
+            splitList(
+              $("editSizes")
+                .value
+            ),
+
+          notes:
+            $("editNotes")
+              .value
+              .trim(),
+
+          url:
+            $("editUrl")
+              .value
+              .trim(),
+
+          images:
+            splitList(
+              $("editImages")
+                .value,
+              "\n"
+            )
+
+        })
+
       );
 
-      render();
-
-    };
-
-
-/* ========================================
-   DETAIL PRIORITY
-======================================== */
-
-document
-  .getElementById(
-    "detailPriority"
-  )
-  .onclick =
-    () => {
-
-      const item =
-        items.find(
-          item =>
-            item.id ===
-            selectedId
-        );
-
-
-      if(!item){
-        return;
-      }
-
-
-      item.priority =
-        !item.priority;
-
 
       save();
+      fillDetail(item);
 
-      openDetail(
-        selectedId
-      );
-
-      render();
-
-    };
-
-
-/* ========================================
-   SAVE DETAIL
-======================================== */
-
-document
-  .getElementById(
-    "saveDetail"
-  )
-  .onclick =
-    () => {
-
-      const item =
-        items.find(
-          item =>
-            item.id ===
-            selectedId
-        );
-
-
-      if(!item){
-        return;
-      }
-
-
-      item.name =
-        document
-          .getElementById(
-            "editName"
-          )
-          .value
-          .trim();
-
-
-      item.brand =
-        document
-          .getElementById(
-            "editBrand"
-          )
-          .value
-          .trim();
-
-
-      const priceText =
-        document
-          .getElementById(
-            "editPrice"
-          )
-          .value
-          .trim();
-
-
-      item.price =
-        priceText === ""
-          ? null
-          : Number(
-              priceText
-            );
-
-
-      item.currency =
-        document
-          .getElementById(
-            "editCurrency"
-          )
-          .value;
-
-
-      item.category =
-        document
-          .getElementById(
-            "editCategory"
-          )
-          .value;
-
-
-      item.color =
-        document
-          .getElementById(
-            "editColor"
-          )
-          .value
-          .trim();
-
-
-      item.mySize =
-        document
-          .getElementById(
-            "editSize"
-          )
-          .value
-          .trim();
-
-
-      item.notes =
-        document
-          .getElementById(
-            "editNotes"
-          )
-          .value
-          .trim();
-
-
-      item.url =
-        document
-          .getElementById(
-            "editUrl"
-          )
-          .value
-          .trim();
-
-
-      item.images =
-        document
-          .getElementById(
-            "editImages"
-          )
-          .value
-          .split("\n")
-          .map(
-            value =>
-              value.trim()
-          )
-          .filter(Boolean);
-
-
-      save();
-
-
-      detailOverlay
-        .classList
-        .remove(
-          "show"
-        );
-
+      $("editBox")
+        .open =
+          false;
 
       render();
 
-    };
+    }
+  );
 
 
-/* ========================================
-   DELETE
-======================================== */
+/* DELETE */
 
-document
-  .getElementById(
-    "deleteDetail"
-  )
-  .onclick =
+$("deleteDetail")
+  .addEventListener(
+    "click",
     () => {
 
       const item =
-        items.find(
-          item =>
-            item.id ===
-            selectedId
+        getItem(
+          selectedId
         );
 
 
@@ -4349,12 +4442,13 @@ document
 
       if(
         !confirm(
-          `Eliminare "${item.name}"?`
+          `Eliminare "${
+            item.name ||
+            "questo prodotto"
+          }"?`
         )
       ){
-
         return;
-
       }
 
 
@@ -4367,163 +4461,131 @@ document
 
 
       save();
-
-
-      detailOverlay
-        .classList
-        .remove(
-          "show"
-        );
-
-
+      closeOverlay(detailOverlay);
       render();
 
-    };
-
-
-/* ========================================
-   SEARCH + SORT
-======================================== */
-
-searchInput
-  .addEventListener(
-    "input",
-    renderGrid
-  );
-
-
-sortSelect
-  .addEventListener(
-    "change",
-    renderGrid
-  );
-
-
-/* ========================================
-   ESC
-======================================== */
-
-document
-  .addEventListener(
-    "keydown",
-    event => {
-
-      if(
-        event.key ===
-        "Escape"
-      ){
-
-        addOverlay
-          .classList
-          .remove(
-            "show"
-          );
-
-
-        detailOverlay
-          .classList
-          .remove(
-            "show"
-          );
-
-      }
-
     }
   );
 
 
-/* ========================================
-   SCROLL PARALLAX
-======================================== */
+/* JIGGLE */
 
-let parallaxFrame =
-  null;
+function triggerJiggle(){
 
+  const now =
+    performance.now();
 
-function updateCardParallax(){
-
-  parallaxFrame =
-    null;
-
-
-  const cards =
-    document
-      .querySelectorAll(
-        ".card"
-      );
-
-
-  const windowCenter =
-    window.innerHeight /
-    2;
-
-
-  cards.forEach(
-    card => {
-
-      const rect =
-        card
-          .getBoundingClientRect();
-
-
-      const cardCenter =
-        rect.top +
-        rect.height /
-        2;
-
-
-      let distance =
-        (
-          cardCenter -
-          windowCenter
-        ) /
-        window.innerHeight;
-
-
-      distance =
-        Math.max(
-          -1,
-          Math.min(
-            1,
-            distance
-          )
-        );
-
-
-      const shift =
-        distance *
-        -8;
-
-
-      card
-        .style
-        .setProperty(
-          "--scrollY",
-          shift +
-          "px"
-        );
-
-    }
-  );
-
-}
-
-
-function requestParallax(){
 
   if(
-    parallaxFrame !==
-    null
+    now -
+    lastJiggleAt <
+    950
   ){
-
     return;
-
   }
 
 
-  parallaxFrame =
-    requestAnimationFrame(
-      updateCardParallax
+  lastJiggleAt =
+    now;
+
+
+  const targets =
+    detailOverlay
+      .classList
+      .contains(
+        "show"
+      )
+
+      ? [
+          detailModal
+        ]
+
+      : [
+          ...grid
+            .querySelectorAll(
+              ".card"
+            )
+        ]
+        .filter(
+          element => {
+
+            const rect =
+              element
+                .getBoundingClientRect();
+
+
+            return (
+              rect.bottom > 0 &&
+              rect.top <
+              window.innerHeight
+            );
+
+          }
+        )
+        .slice(
+          0,
+          12
+        );
+
+
+  targets
+    .forEach(
+      (
+        element,
+        index
+      ) => {
+
+        element
+          .classList
+          .remove(
+            "jiggle"
+          );
+
+
+        void element.offsetWidth;
+
+
+        element
+          .style
+          .animationDelay =
+            Math.min(
+              index * 32,
+              220
+            ) +
+            "ms";
+
+
+        element
+          .classList
+          .add(
+            "jiggle"
+          );
+
+
+        element
+          .addEventListener(
+            "animationend",
+            () => {
+
+              element
+                .classList
+                .remove(
+                  "jiggle"
+                );
+
+
+              element
+                .style
+                .animationDelay =
+                  "";
+
+            },
+            {
+              once:true
+            }
+          );
+
+      }
     );
 
 }
@@ -4531,8 +4593,24 @@ function requestParallax(){
 
 window
   .addEventListener(
-    "scroll",
-    requestParallax,
+    "wheel",
+    event => {
+
+      if(
+        event.deltaY < 0 &&
+        window.scrollY <= 0 &&
+        !addOverlay
+          .classList
+          .contains(
+            "show"
+          )
+      ){
+
+        triggerJiggle();
+
+      }
+
+    },
     {
       passive:true
     }
@@ -4541,21 +4619,66 @@ window
 
 window
   .addEventListener(
-    "resize",
-    requestParallax
+    "touchstart",
+    event => {
+
+      touchStartY =
+        event
+          .touches[0]
+          ?.clientY ??
+        null;
+
+    },
+    {
+      passive:true
+    }
   );
 
 
-/* ========================================
-   START
-======================================== */
+window
+  .addEventListener(
+    "touchmove",
+    event => {
+
+      const y =
+        event
+          .touches[0]
+          ?.clientY;
+
+
+      if(
+        touchStartY !==
+        null
+        &&
+        y !==
+        undefined
+        &&
+        y -
+        touchStartY >
+        22
+        &&
+        window.scrollY <=
+        0
+        &&
+        !addOverlay
+          .classList
+          .contains(
+            "show"
+          )
+      ){
+
+        triggerJiggle();
+
+      }
+
+    },
+    {
+      passive:true
+    }
+  );
+
 
 render();
-
-requestAnimationFrame(
-  updateCardParallax
-);
-
 </script>
 
 </body>
